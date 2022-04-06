@@ -3,28 +3,35 @@
 const express = require("express");
 const morgan = require("morgan");
 const {
+    getUsers,
+    createUser,
+    logInUser
 } = require("./handler");
 const PORT = 8000;
 
 express()
-    .use(function (req, res, next) {
-        res.header(
-            "Access-Control-Allow-Methods",
-            "OPTIONS, HEAD, GET, PUT, POST, DELETE"
-        );
-        res.header(
-            "Access-Control-Allow-Headers",
-            "Origin, X-Requested-With, Content-Type, Accept"
-        );
-        next();
-    })
     .use(morgan("tiny"))
-    .use(express.static("./server/assets"))
     .use(express.json())
-    .use(express.urlencoded({ extended: false }))
-    .use("/", express.static(__dirname + "/"))
+
+    .use(express.static("public"))
 
 
+    .get('/api/users', getUsers)
+    .post('/api/user', createUser)
+    .post('/api.login', logInUser)
+
+
+
+
+
+
+
+    .get("*", (req, res) => {
+        res.status(404).json({
+            status: 404,
+            message: "ERROR FROM SERVER",
+        });
+    })
     .get("/HelloWorld", (req, res) => res.status(200).json("I'm the next Mark Zuckerbung"))
 
     .listen(PORT, () => console.info(`Listening on port ${PORT}`));
