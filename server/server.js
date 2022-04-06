@@ -18,7 +18,7 @@ express()
 
     .get('/api/users', getUsers)
     .post('/api/user', createUser)
-    .post('/api.login', logInUser)
+    .post('/api/login', logInUser)
 
 
 
