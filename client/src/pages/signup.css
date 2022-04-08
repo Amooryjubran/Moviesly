@@ -1,0 +1,46 @@
+.signUpContainer {
+}
+.signUp {
+}
+.signUp > div {
+}
+.signUpLogo {
+}
+.signUpLogoG {
+  display: block;
+  margin: 30px auto;
+  height: 30px;
+}
+.signUpHeader {
+}
+.signUpForm {
+}
+.signUpForm > div {
+}
+.signUpForm > div > svg {
+}
+.signUpForm > button {
+}
+.signUpForm > button > span {
+}
+
+.signUpForm > div > input {
+}
+.signUpForm > div > input:focus {
+}
+.signUpForm > div > p {
+}
+.signUpLogin {
+  font-size: 16px;
+  margin: 30px auto;
+  color: #8a8a8a;
+  text-align: center;
+}
+.signUpLogin > a {
+}
+
+.signUpLoginOr {
+}
+
+.signUpLoginOr span {
+}
