@@ -85,7 +85,7 @@ const BannerDescr = styled.h1`
   font-size: 20px;
 `;
 const Fade = styled.div`
-  height: 448px;
+  height: 425px;
   background-image: linear-gradient(
     180deg,
     transparent,

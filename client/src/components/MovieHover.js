@@ -6,12 +6,12 @@ import ExplicitIcon from "@mui/icons-material/Explicit";
 import Rating from "@mui/material/Rating";
 import Stack from "@mui/material/Stack";
 import LanguageIcon from "@mui/icons-material/Language";
-export default function MovieHover({ movie }) {
+export default function MovieHover({ movie, isLarge }) {
   return (
-    <MovieOnHover>
+    <MovieOnHover state={isLarge}>
       <Top>
         <Stack>
-          <Rating
+          <RatingS
             defaultValue={movie.vote_average / 2}
             size="small"
             precision={0.5}
@@ -44,18 +44,17 @@ export default function MovieHover({ movie }) {
 
 const MovieTitle = styled.h1`
   font-weight: 400;
-  font-size: 14px;
+  font-size: 12px;
   color: #d3d3d3;
 `;
 const MovieInfo = styled.p`
   color: #d3d3d3;
-  margin: 10px 0;
-  font-size: 10px;
+  margin: 5px 0;
+  font-size: 8px;
 `;
 const MovieOnHover = styled.div`
   position: absolute;
-  top: 30%;
-  /* max-width: 85%; */
+  top: ${(props) => (props.state ? "55%" : "30%")};
   margin: 0 auto;
   padding: 15px;
   background: #7a6468;
@@ -88,23 +87,27 @@ const Bottom = styled.div`
 const Adult = styled.div`
   border: 1px solid white;
   color: white;
-  font-size: 10px;
+  font-size: 8px;
+  padding: 2px;
 `;
 const Language = styled.span`
   display: flex;
   gap: 5px;
   align-items: end;
-  font-size: 14px;
+  font-size: 10px;
 `;
 const ReleaseDate = styled.span`
   font-size: 10px;
 `;
 const Add = styled(AddCircleOutlineIcon)`
-  font-size: 16px;
+  font-size: 10px;
 `;
 const Eye = styled(VisibilityIcon)`
-  font-size: 16px;
+  font-size: 10px;
 `;
 const Lang = styled(LanguageIcon)`
-  font-size: 16px;
+  font-size: 10px;
+`;
+const RatingS = styled(Rating)`
+  font-size: 12px;
 `;

@@ -13,6 +13,7 @@ export default function Browse() {
       />
       <Movies
         title="Trending"
+        isLarge={true}
         url={process.env.REACT_APP_TRENDING}
         genre={process.env.REACT_APP_TRENDING_KEY}
       />
@@ -64,5 +65,4 @@ const Wrapper = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
-  gap: 20px;
 `;

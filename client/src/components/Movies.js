@@ -6,7 +6,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import MovieHover from "./MovieHover";
 import { Link } from "react-router-dom";
-export default function Movies({ title, url, genre }) {
+export default function Movies({ title, url, genre, isLarge }) {
   const urlLink =
     process.env.REACT_APP_BASE_URL +
     url +
@@ -20,9 +20,9 @@ export default function Movies({ title, url, genre }) {
   }
   const settings = {
     dots: false,
-    arrows: false,
+    arrows: true,
     infinite: false,
-    slidesToShow: 7,
+    slidesToShow: 9,
     slidesToScroll: 4,
 
     responsive: [
@@ -67,13 +67,14 @@ export default function Movies({ title, url, genre }) {
             <MovieCard key={movie.id}>
               <LinkMovie to={`/browse/${movie.id}`}>
                 <MovieImg
+                  state={isLarge}
                   src={
                     movie.backdrop_path &&
                     `${process.env.REACT_APP_BASE_IMG}${movie.backdrop_path}`
                   }
                   alt={movie.id}
                 />
-                <MovieHover movie={movie} />
+                <MovieHover movie={movie} isLarge={isLarge} />
               </LinkMovie>
             </MovieCard>
           );
@@ -91,15 +92,10 @@ const Wrapper = styled.div`
 const Title = styled.h1`
   font-weight: 400;
   color: white;
+  font-size: 22px;
+  padding: 0 0 5px 0;
 `;
 
-const Container = styled.div`
-  display: flex;
-  gap: 10px;
-  /* overflow-y: hidden;
-  overflow-x: scroll;
-  padding: 20px; */
-`;
 const MovieCard = styled.div`
   position: relative;
   cursor: pointer;
@@ -116,21 +112,68 @@ const MovieCard = styled.div`
   }
 `;
 const MovieImg = styled.img`
-  height: 150px;
-  width: 250px;
+  height: ${(props) => (props.state ? "250px" : "100px")};
+  width: ${(props) => (props.state ? "170px" : "177px")};
+  object-fit: cover;
   border-radius: 5px;
 `;
 const SliderS = styled(Slider)`
-  position: relative;
-  max-width: 100vw;
-  width: 100%;
+  .slick-arrow {
+    display: none !important;
+  }
+  &:hover {
+    .slick-arrow {
+      display: block !important;
+    }
+  }
   .slick-slide {
-    /* margin: 100px 0; */
     z-index: 1;
   }
   .slick-list {
-    /* margin: -100px 0; */
     overflow: visible;
+  }
+  .slick-next:before,
+  .slick-prev:before {
+    font-size: 45px;
+  }
+  .slick-prev:before {
+    position: absolute;
+    content: "";
+    width: 10px;
+    height: 10px;
+    border-top: 2px solid black;
+    border-right: 2px solid black;
+    transform: rotate(225deg);
+    left: 10px;
+    top: ${(props) => (props.state ? "-13px" : "8px")};
+  }
+  .slick-next:before {
+    position: absolute;
+    content: "";
+    width: 10px;
+    height: 10px;
+    border-top: 2px solid black;
+    border-right: 2px solid black;
+    transform: rotate(45deg);
+    left: 6px;
+    top: ${(props) => (props.state ? "-13px" : "8px")};
+  }
+  .slick-prev {
+    z-index: 43242342342;
+  }
+  .slick-next {
+    right: 10px;
+    background-color: rgba(255, 255, 255, 0.5);
+    padding: 15px;
+    border-radius: 50%;
+  }
+  .slick-prev {
+    background-color: rgba(255, 255, 255, 0.5);
+    padding: 15px;
+    border-radius: 50%;
+  }
+  .slick-disabled {
+    opacity: 0% !important;
   }
 `;
 
