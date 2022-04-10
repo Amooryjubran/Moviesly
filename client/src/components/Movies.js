@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import React, { useState } from "react";
+import React from "react";
 import { useFetch } from "../hooks/useFetch";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -14,7 +14,6 @@ export default function Movies({ title, url, genre, isLarge }) {
     genre;
 
   const { data } = useFetch(urlLink);
-
   if (!data) {
     return null;
   }
@@ -69,8 +68,9 @@ export default function Movies({ title, url, genre, isLarge }) {
                 <MovieImg
                   state={isLarge}
                   src={
-                    movie.backdrop_path &&
-                    `${process.env.REACT_APP_BASE_IMG}${movie.backdrop_path}`
+                    movie.backdrop_path
+                      ? `${process.env.REACT_APP_BASE_IMG}${movie.backdrop_path}`
+                      : `${process.env.REACT_APP_BASE_IMG}${movie.poster_path}`
                   }
                   alt={movie.id}
                 />
