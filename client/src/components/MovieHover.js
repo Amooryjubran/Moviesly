@@ -1,5 +1,4 @@
 import styled from "@emotion/styled";
-import React from "react";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import ExplicitIcon from "@mui/icons-material/Explicit";

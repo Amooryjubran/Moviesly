@@ -51,6 +51,7 @@ const logInUser = async (req, res) => {
           favoriteGenres,
           watched,
           premiumMember,
+          watchLater,
         } = loginAuth;
 
         return res.status(200).json({
@@ -64,6 +65,7 @@ const logInUser = async (req, res) => {
             favoriteGenres,
             watched,
             premiumMember,
+            watchLater,
           },
         });
       } else
@@ -137,9 +139,44 @@ const createUser = async (req, res) => {
     client.close();
   }
 };
+const addToWatchLater = async (req, res) => {
+  const client = new MongoClient(MONGO_URI, option);
+  const { email, watchLater } = req.body;
+  try {
+    await client.connect();
+    const db = client.db("Movieslify");
+    const emailUsers = await db.collection("users").findOne({ email });
 
+    if (emailUsers) {
+      const result = await db.collection("users").updateOne(
+        { email },
+        {
+          $set: {
+            watchLater,
+          },
+        }
+      );
+
+      console.log(result);
+      return res.status(200).json({
+        status: 200,
+        message: `watch later updated`,
+      });
+    } else {
+      return res.status(400).json({
+        status: 400,
+        message: `Not able to add Watch later to database, user not found`,
+      });
+    }
+  } catch (err) {
+    console.log(err);
+  } finally {
+    client.close();
+  }
+};
 module.exports = {
   getUsers,
   createUser,
   logInUser,
+  addToWatchLater,
 };

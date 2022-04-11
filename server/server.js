@@ -3,35 +3,32 @@
 const express = require("express");
 const morgan = require("morgan");
 const {
-    getUsers,
-    createUser,
-    logInUser
+  getUsers,
+  createUser,
+  logInUser,
+  addToWatchLater,
 } = require("./handler");
 const PORT = 8000;
 
 express()
-    .use(morgan("tiny"))
-    .use(express.json())
+  .use(morgan("tiny"))
+  .use(express.json())
 
-    .use(express.static("public"))
+  .use(express.static("public"))
 
+  .get("/api/users", getUsers)
+  .post("/api/user", createUser)
+  .post("/api/login", logInUser)
+  .put("/api/watchlater", addToWatchLater)
 
-    .get('/api/users', getUsers)
-    .post('/api/user', createUser)
-    .post('/api/login', logInUser)
+  .get("*", (req, res) => {
+    res.status(404).json({
+      status: 404,
+      message: "ERROR FROM SERVER",
+    });
+  })
+  .get("/HelloWorld", (req, res) =>
+    res.status(200).json("I'm the next Mark Zuckerbung")
+  )
 
-
-
-
-
-
-
-    .get("*", (req, res) => {
-        res.status(404).json({
-            status: 404,
-            message: "ERROR FROM SERVER",
-        });
-    })
-    .get("/HelloWorld", (req, res) => res.status(200).json("I'm the next Mark Zuckerbung"))
-
-    .listen(PORT, () => console.info(`Listening on port ${PORT}`));
+  .listen(PORT, () => console.info(`Listening on port ${PORT}`));

@@ -9,6 +9,7 @@ export default function MoviesBanner({ url, genre }) {
     process.env.REACT_APP_API_KEY +
     genre;
   const { data } = useFetch(urlLink);
+  console.log(data);
   if (!data) {
     return null;
   }

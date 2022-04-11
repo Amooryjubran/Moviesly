@@ -3,11 +3,53 @@ import Rating from "@mui/material/Rating";
 import Stack from "@mui/material/Stack";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import VisibilityIcon from "@mui/icons-material/Visibility";
+import { useContext } from "react";
+import { UserContext } from "../context/UserContext";
 export default function MovieHeader({ data }) {
+  const {
+    state: { user },
+    actions: { updateUser },
+  } = useContext(UserContext);
+  const handleWishList = () => {
+    if (!user.email) {
+      return;
+    }
+
+    const movieId = data.id;
+
+    const findMovie = user.watchLater.findIndex((item) => item.id === movieId);
+    console.log(findMovie);
+    const copy = user.watchLater;
+    if (findMovie === -1) {
+      copy.push(data);
+    } else {
+      copy.splice(findMovie, 1);
+    }
+    console.log(copy);
+    updateUser({ user: { ...user, watchLater: copy } });
+    fetch(`/api/watchlater`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        watchLater: copy,
+        email: user.email,
+      }),
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((error) => {
+        console.log("error", error);
+      });
+  };
   return (
     <Header
       style={{
-        background: `linear-gradient(rgba(255, 255, 254, -1), rgba(255, 255, 255, 2.5)),url(${process.env.REACT_APP_BASE_IMG}${data.backdrop_path})`,
+        background: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+        url(https://image.tmdb.org/t/p/original/${data.backdrop_path})`,
         backgroundSize: "cover",
       }}
     >
@@ -17,7 +59,7 @@ export default function MovieHeader({ data }) {
       />
       <Overview>
         <h1>{data.title}</h1>
-        <hr />
+        <Seperator />
         <Categories>
           <Genres>
             {data.genres.map((genre) => (
@@ -36,16 +78,16 @@ export default function MovieHeader({ data }) {
             </Stack>
           </RatingContainer>
         </Categories>
-        <hr />
+        <Seperator />
         <p>{data.overview}</p>
-        <hr />
+        <Seperator />
         <BTNS>
           <WatchBTN>
             <LinkBtn href={`https://www.imdb.com/title/${data.imdb_id}`}>
               Watch
             </LinkBtn>
           </WatchBTN>
-          <Add />
+          <Add onClick={handleWishList} />
           <Eye />
         </BTNS>
       </Overview>
@@ -61,11 +103,12 @@ const Header = styled.div`
   background-size: cover;
   color: white;
   object-fit: contain;
-  height: 500px;
+  height: 600px;
 `;
 const Poster = styled.img`
   width: 250px;
   height: 400px;
+  box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
 `;
 const Overview = styled.div`
   max-width: 40%;
@@ -118,4 +161,9 @@ const WatchBTN = styled.button`
 const LinkBtn = styled.a`
   color: white;
   text-decoration: none;
+`;
+const Seperator = styled.hr`
+  height: 1px;
+  background-color: #354230;
+  border: none;
 `;

@@ -27,23 +27,28 @@ export default function Movie() {
     <>
       <MovieHeader data={data} />
       <Container>
-        <Sidebar />
+        <Sidebar data={data} />
         <Reviews />
-        <NewsBar />
+        <NewsBar data={data} />
       </Container>
     </>
   );
 }
 const Container = styled.div`
   display: flex;
+  max-width: 70%;
+  margin: 0 auto;
   > div {
     flex: 1;
-    padding: 10px;
+    padding: 20px;
   }
   > div:nth-of-type(2) {
     flex: 2;
   }
   div:nth-of-type(odd) {
-    background: #eee;
+    box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+    height: 50%;
+    position: sticky;
+    top: 0;
   }
 `;
