@@ -7,6 +7,7 @@ const {
   createUser,
   logInUser,
   addToWatchLater,
+  addReview,
 } = require("./handler");
 const PORT = 8000;
 
@@ -19,6 +20,7 @@ express()
   .get("/api/users", getUsers)
   .post("/api/user", createUser)
   .post("/api/login", logInUser)
+  .put("/api/review", addReview)
   .put("/api/watchlater", addToWatchLater)
 
   .get("*", (req, res) => {

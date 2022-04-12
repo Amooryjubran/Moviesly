@@ -8,6 +8,7 @@ import Reviews from "../components/Reviews";
 
 export default function Movie() {
   const { movie } = useParams();
+
   const API_KEY = "?api_key=";
   const URL =
     process.env.REACT_APP_BASE_URL +
@@ -16,19 +17,16 @@ export default function Movie() {
     API_KEY +
     process.env.REACT_APP_API_KEY;
 
-  console.log(URL);
-
   const { data } = useFetch(URL);
   if (!data) {
     return null;
   }
-  console.log(data);
   return (
     <>
       <MovieHeader data={data} />
       <Container>
         <Sidebar data={data} />
-        <Reviews />
+        <Reviews data={data} />
         <NewsBar data={data} />
       </Container>
     </>
