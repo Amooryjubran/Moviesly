@@ -62,7 +62,7 @@ export default function Login() {
       .then((data) => {
         if (data.status === 200) {
           receivedUserFromServer({ user: data.data });
-          history("/", { replace: true });
+          history(-1, { replace: true });
         } else if (data.status === 400) {
           return [setEmaildValid(true), setButtonSpinner(false)];
         } else if (data.status === 409) {

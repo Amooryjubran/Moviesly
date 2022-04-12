@@ -178,26 +178,41 @@ const addToWatchLater = async (req, res) => {
 };
 const addReview = async (req, res) => {
   const client = new MongoClient(MONGO_URI, option);
-  const { email, reviews } = req.body;
+  const { email, movieId, review, rating } = req.body;
+  const userArray = {
+    _id: uuidv4(),
+    email: email,
+    movieId: movieId,
+    review: review,
+    likes: 0,
+    replys: [],
+    rating: rating,
+  };
 
   try {
     await client.connect();
     const db = client.db("Movieslify");
     const emailUsers = await db.collection("users").findOne({ email });
+    if (!email || !movieId || !review || !rating) {
+      return res
+        .status(409)
+        .json({ status: 409, message: "Please complete your form" });
+    }
     if (emailUsers) {
-      const result = await db.collection("users").updateOne(
+      await db.collection("reviews").insertOne(userArray);
+      res.status(200).json({
+        status: 200,
+        message: `Review is added`,
+        data: userArray,
+      });
+      await db.collection("users").updateOne(
         { email },
         {
-          $set: {
-            reviews,
+          $push: {
+            reviews: userArray._id,
           },
         }
       );
-      console.log(result);
-      return res.status(200).json({
-        status: 200,
-        message: `Review is added`,
-      });
     } else {
       return res.status(400).json({
         status: 400,

@@ -1,38 +1,39 @@
 import { CircularProgress } from "@mui/material";
 import { useContext, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { UserContext } from "../context/UserContext";
-
+import Rating from "@mui/material/Rating";
+import Stack from "@mui/material/Stack";
 export default function AddReview({ data }) {
   const { movie } = useParams();
   const [review, setReview] = useState();
   const [buttonSpinner, setButtonSpinner] = useState(false);
-
+  const [value, setValue] = useState(2);
+  const [error, setError] = useState(false);
+  const [userLoggedIn, setUserLoggedIn] = useState(false);
+  console.log(review);
   const {
     state: { user },
-    actions: { updateUser },
   } = useContext(UserContext);
   const handleWishList = () => {
     setButtonSpinner(true);
     if (!user.email) {
-      return;
+      return setUserLoggedIn(true);
+    }
+    if (value === 0 || !review) {
+      return setError(true);
     }
 
-    const movieId = data.id;
-    const findMovie = user.reviews.findIndex((item) => item.id === movieId);
-    console.log(findMovie);
-    const copy = user.reviews;
-    if (findMovie === -1) {
-      copy.push({ review: review, movieId: movie, email: user.email });
-    }
-    console.log(copy);
-    updateUser({ user: { ...user, reviews: copy } });
     fetch(`/api/review`, {
-      method: "PUT",
+      method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        reviews: copy,
+        id: user._id,
+        movieId: movie,
+        review: review,
+        email: user.email,
+        rating: value,
       }),
     })
       .then((res) => {
@@ -40,9 +41,7 @@ export default function AddReview({ data }) {
       })
       .then((data) => {
         if (data.status === 200) {
-          return setButtonSpinner(false);
-        } else if (data.status === 400) {
-          return [setButtonSpinner(false)];
+          return [setButtonSpinner(false), setError(false)];
         } else if (data.status === 409) {
           return [setButtonSpinner(false)];
         }
@@ -54,6 +53,15 @@ export default function AddReview({ data }) {
   };
   return (
     <Container>
+      {!user.email && (
+        <Login>
+          <p>Log in to write a review</p>
+
+          <button>
+            <LinkBtn to="/login">Log In</LinkBtn>
+          </button>
+        </Login>
+      )}
       <Title>Add your review</Title>
       <Seperator />
       <Wrapper>
@@ -67,8 +75,20 @@ export default function AddReview({ data }) {
             value={review}
             onChange={(e) => setReview(e.target.value)}
           />
+          <Stack>
+            <Rating
+              name="simple-controlled"
+              value={value}
+              onChange={(event, value) => {
+                setValue(value);
+              }}
+            />
+          </Stack>
+          {error && <Error>Please complete your review!</Error>}
+          {userLoggedIn && <Error>Please Login!</Error>}
+
           <Buttons>
-            <CommentBtn onClick={handleWishList}>
+            <CommentBtn disabled={!user.email} onClick={handleWishList}>
               {buttonSpinner ? <CircularProgress size={15} /> : <>Post</>}
             </CommentBtn>
             <Cancel onClick={() => setReview("")}>Cancel</Cancel>
@@ -82,6 +102,7 @@ export default function AddReview({ data }) {
 const Container = styled.div`
   padding: 20px;
   height: 100% !important;
+  position: relative !important;
 `;
 const Title = styled.h1`
   font-size: 16px;
@@ -133,7 +154,6 @@ const Cancel = styled.button`
   border: 1px solid lightgray;
   color: black;
   height: 1.75rem;
-  width: 20%;
   padding: 5px;
   font-size: 12px;
   cursor: pointer;
@@ -144,4 +164,36 @@ const Buttons = styled.div`
   box-shadow: none !important;
   display: flex;
   gap: 10px;
+`;
+const Error = styled.p`
+  color: red;
+`;
+const Login = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 20px;
+  box-shadow: none !important;
+  height: 100% !important;
+  width: 100%;
+  position: absolute !important;
+  background-color: rgba(255, 255, 255, 0.8);
+
+  z-index: 9;
+  > button {
+    background-color: #cc777b;
+    border: none;
+    color: #fff;
+    height: 1.75rem;
+    width: 20%;
+    padding: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 30px;
+  }
+`;
+const LinkBtn = styled(Link)`
+  color: white;
+  text-decoration: none;
 `;

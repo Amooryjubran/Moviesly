@@ -20,7 +20,7 @@ express()
   .get("/api/users", getUsers)
   .post("/api/user", createUser)
   .post("/api/login", logInUser)
-  .put("/api/review", addReview)
+  .post("/api/review", addReview)
   .put("/api/watchlater", addToWatchLater)
 
   .get("*", (req, res) => {
