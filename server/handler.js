@@ -28,6 +28,22 @@ const getUsers = async (req, res) => {
   }
 };
 
+const getReviews = async (req, res) => {
+  try {
+    await client.connect();
+    const db = client.db("Movieslify");
+    const result = await db.collection("reviews").find().toArray();
+    result
+      ? res.status(200).json({ status: 200, data: result, message: "success" })
+      : res.status(409).json({ status: 409, message: "ERROR" });
+  } catch (err) {
+    console.log("Error getting list of users", err);
+    res.status(500).json({ status: 500, message: err });
+  } finally {
+    client.close();
+  }
+};
+
 const logInUser = async (req, res) => {
   const { email, password } = req.body;
 
@@ -93,6 +109,7 @@ const createUser = async (req, res) => {
     watched: [],
     watchLater: [],
     reviews: [],
+    likes: [],
     premiumMember: false,
   };
   try {
@@ -184,9 +201,10 @@ const addReview = async (req, res) => {
     email: email,
     movieId: movieId,
     review: review,
-    likes: 0,
+    likes: [],
     replys: [],
     rating: rating,
+    timeStamp: new Date().toISOString(),
   };
 
   try {
@@ -225,10 +243,59 @@ const addReview = async (req, res) => {
     client.close();
   }
 };
+
+const addLike = async (req, res) => {
+  const client = new MongoClient(MONGO_URI, option);
+  const { email, movieId, likes } = req.body;
+
+  try {
+    await client.connect();
+    const db = client.db("Movieslify");
+    const emailUsers = await db.collection("users").findOne({ email });
+    // if (!email || !movieId || !likes) {
+    //   return res
+    //     .status(409)
+    //     .json({ status: 409, message: "Please complete your account first" });
+    // }
+
+    if (emailUsers) {
+      const review = await db.collection("reviews").findOneAndUpdate(
+        { email },
+        {
+          $push: {
+            likes: likes,
+          },
+        }
+      );
+      await db.collection("users").updateOne(
+        { email },
+        {
+          $push: {
+            likes: review.value._id,
+          },
+        }
+      );
+      // const user = await db
+      // .collection("reviews")
+      // .updateOne({ email }, { $pull: { likes: likes } });
+    } else {
+      return res.status(400).json({
+        status: 400,
+        message: `Not able to add your like to database, user not found`,
+      });
+    }
+  } catch (err) {
+    console.log(err);
+  } finally {
+    client.close();
+  }
+};
 module.exports = {
   getUsers,
+  getReviews,
   createUser,
   logInUser,
   addToWatchLater,
   addReview,
+  addLike,
 };
