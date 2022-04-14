@@ -25,7 +25,6 @@ export default function MovieHeader({ data }) {
     } else {
       copy.splice(findMovie, 1);
     }
-    console.log(copy);
     updateUser({ user: { ...user, watchLater: copy } });
     fetch(`/api/watchlater`, {
       method: "PUT",

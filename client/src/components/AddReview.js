@@ -5,17 +5,20 @@ import styled from "styled-components";
 import { UserContext } from "../context/UserContext";
 import Rating from "@mui/material/Rating";
 import Stack from "@mui/material/Stack";
-export default function AddReview({ data }) {
+export default function AddReview() {
   const { movie } = useParams();
   const [review, setReview] = useState();
   const [buttonSpinner, setButtonSpinner] = useState(false);
   const [value, setValue] = useState(2);
   const [error, setError] = useState(false);
   const [userLoggedIn, setUserLoggedIn] = useState(false);
-  console.log(review);
+
   const {
     state: { user },
   } = useContext(UserContext);
+  if (!user) {
+    return null;
+  }
   const handleWishList = () => {
     setButtonSpinner(true);
     if (!user.email) {
@@ -101,7 +104,7 @@ export default function AddReview({ data }) {
 
 const Container = styled.div`
   padding: 20px;
-  height: 100% !important;
+  /* height: 100% !important; */
   position: relative !important;
 `;
 const Title = styled.h1`
@@ -175,7 +178,7 @@ const Login = styled.div`
   flex-direction: column;
   gap: 20px;
   box-shadow: none !important;
-  height: 100% !important;
+  /* height: 100% !important; */
   width: 100%;
   position: absolute !important;
   background-color: rgba(255, 255, 255, 0.8);

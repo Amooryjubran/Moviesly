@@ -4,13 +4,16 @@ import styled from "@emotion/styled";
 
 export default function Sidebar({ data }) {
   return (
-    <div>
+    <Wrapper>
       <Text>
         <span>Populatiry</span> {data.popularity} <Fire />
       </Text>
-      <Text>
-        <span>Theme:</span> {data.tagline}
-      </Text>
+      {data.tagline && (
+        <Text>
+          <span>Theme:</span> {data.tagline}
+        </Text>
+      )}
+
       <Text>
         <span>Release Date :</span> {data.release_date}
       </Text>
@@ -25,10 +28,12 @@ export default function Sidebar({ data }) {
         <Lang />
         {data.original_language.toUpperCase()}
       </Text>
-    </div>
+    </Wrapper>
   );
 }
-
+const Wrapper = styled.div`
+  box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+`;
 const Text = styled.p`
   padding: 10px 0;
   border-bottom: 1px solid lightgray;

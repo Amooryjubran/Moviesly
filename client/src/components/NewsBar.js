@@ -1,8 +1,9 @@
 import React from "react";
+import styled from "styled-components";
 
 export default function NewsBar({ data }) {
   return (
-    <div>
+    <Wrapper>
       <p>Production Companies :</p>
       {data.production_companies.map((company) => (
         <div key={company.id}>
@@ -27,6 +28,9 @@ export default function NewsBar({ data }) {
           />
         </div>
       )}
-    </div>
+    </Wrapper>
   );
 }
+const Wrapper = styled.div`
+  box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+`;

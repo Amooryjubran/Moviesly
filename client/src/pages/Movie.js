@@ -26,7 +26,7 @@ export default function Movie() {
       <MovieHeader data={data} />
       <Container>
         <Sidebar data={data} />
-        <Reviews data={data} />
+        <Reviews />
         <NewsBar data={data} />
       </Container>
     </>
@@ -35,7 +35,8 @@ export default function Movie() {
 const Container = styled.div`
   display: flex;
   max-width: 70%;
-  margin: 0 auto;
+  margin: 40px auto;
+  gap: 20px;
   > div {
     flex: 1;
     padding: 20px;
@@ -44,9 +45,8 @@ const Container = styled.div`
     flex: 2;
   }
   div:nth-of-type(odd) {
-    box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
-    height: 50%;
+    /* height: 50%;
     position: sticky;
-    top: 0;
+    top: 0; */
   }
 `;
