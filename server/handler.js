@@ -27,6 +27,21 @@ const getUsers = async (req, res) => {
     client.close();
   }
 };
+const getUser = async (req, res) => {
+  const _id = req.params.profile;
+  try {
+    await client.connect();
+    const db = client.db("Movieslify");
+    const user = await db.collection("users").findOne({ _id });
+    user
+      ? res.status(200).json({ status: 200, data: user })
+      : res.status(404).json({ status: 404, data: "User Not Found" });
+  } catch (err) {
+    console.log(err);
+  } finally {
+    client.close();
+  }
+};
 
 const getReviews = async (req, res) => {
   try {
@@ -110,6 +125,7 @@ const createUser = async (req, res) => {
     watchLater: [],
     reviews: [],
     likes: [],
+    timeStamp: new Date().toISOString(),
     premiumMember: false,
   };
   try {
@@ -307,6 +323,7 @@ const getLike = async (req, res) => {
 };
 module.exports = {
   getUsers,
+  getUser,
   getReviews,
   createUser,
   logInUser,

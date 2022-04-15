@@ -4,6 +4,7 @@ const express = require("express");
 const morgan = require("morgan");
 const {
   getUsers,
+  getUser,
   createUser,
   logInUser,
   addToWatchLater,
@@ -21,6 +22,7 @@ express()
   .use(express.static("public"))
 
   .get("/api/users", getUsers)
+  .get("/api/user/:profile", getUser)
   .get("/api/reviews", getReviews)
   .post("/api/user", createUser)
   .post("/api/login", logInUser)

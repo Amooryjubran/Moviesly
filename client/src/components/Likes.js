@@ -54,7 +54,7 @@ export default function Likes({ setLikeBtn, likeBtn, i, user }) {
                   <p>{x.lastName}</p>
                 </UserInfo>
               </UserWrapper>
-              <UserProfile to="/">
+              <UserProfile to={`/${x._id}`}>
                 <p>Visit</p>
               </UserProfile>
             </UserParent>

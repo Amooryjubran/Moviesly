@@ -4,6 +4,7 @@ import Login from "./pages/Login";
 import Browse from "./pages/Browse";
 import SignUp from "./pages/SignUp";
 import Movie from "./pages/Movie";
+import Profile from "./pages/Profile";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <Route path="/login" element={<Login />} />
       <Route path="/browse" element={<Browse />} />
       <Route path="/browse/:movie" element={<Movie />} />
+      <Route path="/:profile" element={<Profile />} />
     </Routes>
   );
 }
