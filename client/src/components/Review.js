@@ -21,10 +21,6 @@ export default function Review() {
         if (!review) {
           return null;
         }
-        const currentUser = users.data.map(
-          (user) => user.email && user.email.includes(review.email) && user
-        );
-        console.log(currentUser);
         return users.data.map(
           (user) =>
             user.email &&

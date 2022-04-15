@@ -10,6 +10,7 @@ const {
   addReview,
   getReviews,
   addLike,
+  getLike,
 } = require("./handler");
 const PORT = 8000;
 
@@ -26,6 +27,7 @@ express()
   .post("/api/review", addReview)
   .post("/api/like", addLike)
   .put("/api/watchlater", addToWatchLater)
+  .put("/api/like", getLike)
 
   .get("*", (req, res) => {
     res.status(404).json({

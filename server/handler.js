@@ -17,12 +17,12 @@ const getUsers = async (req, res) => {
     await client.connect();
     const db = client.db("Movieslify");
     const result = await db.collection("users").find().toArray();
-    result
+    return result
       ? res.status(200).json({ status: 200, data: result, message: "success" })
       : res.status(409).json({ status: 409, message: "ERROR" });
   } catch (err) {
     console.log("Error getting list of users", err);
-    res.status(500).json({ status: 500, message: err });
+    return res.status(500).json({ status: 500, message: err });
   } finally {
     client.close();
   }
@@ -33,7 +33,7 @@ const getReviews = async (req, res) => {
     await client.connect();
     const db = client.db("Movieslify");
     const result = await db.collection("reviews").find().toArray();
-    result
+    return result
       ? res.status(200).json({ status: 200, data: result, message: "success" })
       : res.status(409).json({ status: 409, message: "ERROR" });
   } catch (err) {
@@ -135,7 +135,7 @@ const createUser = async (req, res) => {
     const cryptedPassword = await bcrypt.hash(password, 10);
     userArray.password = cryptedPassword;
     const users = await db.collection("users").insertOne(userArray);
-    users
+    return users
       ? res.status(200).json({
           status: 200,
           data: {
@@ -159,7 +159,6 @@ const createUser = async (req, res) => {
   }
 };
 const addToWatchLater = async (req, res) => {
-  const client = new MongoClient(MONGO_URI, option);
   const { email, watchLater } = req.body;
   try {
     await client.connect();
@@ -194,7 +193,6 @@ const addToWatchLater = async (req, res) => {
   }
 };
 const addReview = async (req, res) => {
-  const client = new MongoClient(MONGO_URI, option);
   const { email, movieId, review, rating } = req.body;
   const userArray = {
     _id: uuidv4(),
@@ -245,7 +243,6 @@ const addReview = async (req, res) => {
 };
 
 const addLike = async (req, res) => {
-  const client = new MongoClient(MONGO_URI, option);
   const { email, movieId, likes } = req.body;
 
   try {
@@ -290,6 +287,24 @@ const addLike = async (req, res) => {
     client.close();
   }
 };
+const getLike = async (req, res) => {
+  const { likes } = req.body;
+  try {
+    await client.connect();
+    const db = client.db("Movieslify");
+    const users = await db
+      .collection("users")
+      .find({
+        email: { $in: likes },
+      })
+      .toArray();
+    return res.status(200).json({ status: 200, data: users, message: "ok" });
+  } catch (err) {
+    console.log(err);
+  } finally {
+    client.close();
+  }
+};
 module.exports = {
   getUsers,
   getReviews,
@@ -298,4 +313,5 @@ module.exports = {
   addToWatchLater,
   addReview,
   addLike,
+  getLike,
 };

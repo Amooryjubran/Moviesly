@@ -10,7 +10,6 @@ import { UserContext } from "../context/UserContext";
 import Likes from "./Likes";
 export default function ReviewCard({ i, user }) {
   const [likeBtn, setLikeBtn] = useState(false);
-  console.log(user);
   const {
     state: { user: currentUser },
   } = useContext(UserContext);
