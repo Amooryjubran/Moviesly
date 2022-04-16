@@ -209,6 +209,40 @@ const addToWatchLater = async (req, res) => {
     client.close();
   }
 };
+const addToWatched = async (req, res) => {
+  const { email, watched } = req.body;
+  try {
+    await client.connect();
+    const db = client.db("Movieslify");
+    const emailUsers = await db.collection("users").findOne({ email });
+
+    if (emailUsers) {
+      const result = await db.collection("users").updateOne(
+        { email },
+        {
+          $set: {
+            watched,
+          },
+        }
+      );
+
+      console.log(watched);
+      return res.status(200).json({
+        status: 200,
+        message: `watched array is updated`,
+      });
+    } else {
+      return res.status(400).json({
+        status: 400,
+        message: `Not able to add watched array to database, user not found`,
+      });
+    }
+  } catch (err) {
+    console.log(err);
+  } finally {
+    client.close();
+  }
+};
 
 const addGenres = async (req, res) => {
   const { email, favoriteGenres } = req.body;
@@ -405,4 +439,5 @@ module.exports = {
   getLike,
   addGenres,
   addProfileImg,
+  addToWatched,
 };

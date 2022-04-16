@@ -5,45 +5,37 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import { useContext } from "react";
 import { UserContext } from "../context/UserContext";
+import { UsePut } from "../hooks/UsePut";
 export default function MovieHeader({ data }) {
   const {
     state: { user },
     actions: { updateUser },
   } = useContext(UserContext);
-  const handleWishList = () => {
-    if (!user.email) {
-      return;
-    }
-
-    const movieId = data.id;
-
-    const findMovie = user.watchLater.findIndex((item) => item.id === movieId);
-    console.log(findMovie);
-    const copy = user.watchLater;
-    if (findMovie === -1) {
-      copy.push(data);
-    } else {
-      copy.splice(findMovie, 1);
-    }
-    updateUser({ user: { ...user, watchLater: copy } });
-    fetch(`/api/watchlater`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        watchLater: copy,
-        email: user.email,
-      }),
-    })
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
-        console.log(data);
-      })
-      .catch((error) => {
-        console.log("error", error);
-      });
-  };
+  const [handlePut, checkWatchLater] = UsePut({
+    user: user,
+    data: data,
+    updateUser: updateUser,
+    url: `watchLater`,
+    object: user.watchLater,
+    update: { user: { ...user, watchLater: user.watchLater } },
+    input: {
+      watchLater: user.watchLater,
+      email: user.email,
+    },
+  });
+  const [handleWatched, checkWatched] = UsePut({
+    user: user,
+    data: data,
+    updateUser: updateUser,
+    url: `watched`,
+    object: user.watched,
+    input: {
+      watched: user.watched,
+      email: user.email,
+    },
+    update: { user: { ...user, watched: user.watched } },
+  });
+  console.log(checkWatchLater);
   return (
     <Header
       style={{
@@ -86,8 +78,9 @@ export default function MovieHeader({ data }) {
               Watch
             </LinkBtn>
           </WatchBTN>
-          <Add onClick={handleWishList} />
-          <Eye />
+
+          <Add state={checkWatchLater} onClick={() => handlePut()} />
+          <Eye state={checkWatched} onClick={() => handleWatched()} />
         </BTNS>
       </Overview>
     </Header>
@@ -141,10 +134,14 @@ const BTNS = styled.div`
   gap: 25px;
 `;
 const Add = styled(AddCircleOutlineIcon)`
+  color: ${(props) => (props.state === 0 ? "#cc777b" : "white")};
   font-size: 24px;
+  cursor: pointer;
 `;
 const Eye = styled(VisibilityIcon)`
+  color: ${(props) => (props.state === 0 ? "#cc777b" : "white")};
   font-size: 24px;
+  cursor: pointer;
 `;
 const WatchBTN = styled.button`
   background-color: #cc777b;

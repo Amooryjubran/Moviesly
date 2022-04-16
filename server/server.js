@@ -8,6 +8,7 @@ const {
   createUser,
   logInUser,
   addToWatchLater,
+  addToWatched,
   addReview,
   getReviews,
   addLike,
@@ -31,6 +32,7 @@ express()
   .post("/api/review", addReview)
   .post("/api/like", addLike)
   .put("/api/watchlater", addToWatchLater)
+  .put("/api/watched", addToWatched)
   .put("/api/genres", addGenres)
   .put("/api/like", getLike)
   .put("/api/profileImg", addProfileImg)
