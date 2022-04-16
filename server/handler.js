@@ -125,6 +125,7 @@ const createUser = async (req, res) => {
     watchLater: [],
     reviews: [],
     likes: [],
+    profileImg: [],
     timeStamp: new Date().toISOString(),
     premiumMember: false,
   };
@@ -200,6 +201,43 @@ const addToWatchLater = async (req, res) => {
       return res.status(400).json({
         status: 400,
         message: `Not able to add Watch later to database, user not found`,
+      });
+    }
+  } catch (err) {
+    console.log(err);
+  } finally {
+    client.close();
+  }
+};
+
+const addGenres = async (req, res) => {
+  const { email, favoriteGenres } = req.body;
+  try {
+    await client.connect();
+    const db = client.db("Movieslify");
+    const emailUsers = await db.collection("users").findOne({ email });
+
+    if (emailUsers) {
+      const result = await db.collection("users").updateOne(
+        { email },
+        {
+          $set: {
+            favoriteGenres,
+          },
+        }
+      );
+
+      console.log(result);
+      return res.status(200).json({
+        status: 200,
+        message: `Genres Updated`,
+        data: result,
+      });
+    } else {
+      return res.status(400).json({
+        status: 400,
+        message: `Not able to add genres to database, user not found`,
+        data: result,
       });
     }
   } catch (err) {
@@ -321,6 +359,40 @@ const getLike = async (req, res) => {
     client.close();
   }
 };
+const addProfileImg = async (req, res) => {
+  const { email, profileImg } = req.body;
+  try {
+    await client.connect();
+    const db = client.db("Movieslify");
+    const emailUsers = await db.collection("users").findOne({ email });
+
+    if (emailUsers) {
+      const result = await db.collection("users").updateOne(
+        { email },
+        {
+          $set: {
+            profileImg,
+          },
+        }
+      );
+
+      console.log(result);
+      return res.status(200).json({
+        status: 200,
+        message: `Profile picture updated`,
+      });
+    } else {
+      return res.status(400).json({
+        status: 400,
+        message: `Not able to add your profile picture`,
+      });
+    }
+  } catch (err) {
+    console.log(err);
+  } finally {
+    client.close();
+  }
+};
 module.exports = {
   getUsers,
   getUser,
@@ -331,4 +403,6 @@ module.exports = {
   addReview,
   addLike,
   getLike,
+  addGenres,
+  addProfileImg,
 };

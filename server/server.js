@@ -12,6 +12,8 @@ const {
   getReviews,
   addLike,
   getLike,
+  addGenres,
+  addProfileImg,
 } = require("./handler");
 const PORT = 8000;
 
@@ -29,7 +31,9 @@ express()
   .post("/api/review", addReview)
   .post("/api/like", addLike)
   .put("/api/watchlater", addToWatchLater)
+  .put("/api/genres", addGenres)
   .put("/api/like", getLike)
+  .put("/api/profileImg", addProfileImg)
 
   .get("*", (req, res) => {
     res.status(404).json({

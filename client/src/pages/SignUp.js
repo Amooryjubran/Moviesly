@@ -7,6 +7,7 @@ import "./signup.css";
 import styled from "styled-components";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { UserContext } from "../context/UserContext";
+import ProfileForm from "../components/ProfileForm";
 export default function SignUp() {
   const [passwordShown, setPasswordShown] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
@@ -16,6 +17,7 @@ export default function SignUp() {
   const [passwordValid, setPasswordValid] = useState(false);
   const [emaildValid, setEmaildValid] = useState(false);
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [creationSucccess, setCreationSuccess] = useState(false);
   const history = useNavigate();
   const {
     state: { user },
@@ -72,7 +74,8 @@ export default function SignUp() {
       .then((data) => {
         if (data.status === 200) {
           receivedUserFromServer({ user: data.data });
-          history("/", { replace: true });
+          // history("/", { replace: true });
+          setCreationSuccess(true);
         } else if (data.status === 400) {
           return [setEmaildValid(true), setButtonSpinner(false)];
         } else if (data.status === 409) {
@@ -87,9 +90,14 @@ export default function SignUp() {
       });
     setButtonSpinner(!buttonSpinner);
   };
+  // useEffect(() => {
+  //   if (user.firstName) {
+  //     return history("/");
+  //   }
+  // }, [user.firstName]);
   useEffect(() => {
     if (user.firstName) {
-      return history("/");
+      return setCreationSuccess(true);
     }
   }, [user.firstName]);
   return (
@@ -102,22 +110,27 @@ export default function SignUp() {
         <SignUpFormWrapper>
           <SignUpLogo src={Logo} alt="logo" />
           <SingUpHeader>Welcome to Movieslify</SingUpHeader>
-          <SingUpForm
-            handleChange={handleChange}
-            account={account}
-            passwordShown={passwordShown}
-            showPassword={showPassword}
-            toggleShowPassword={toggleShowPassword}
-            togglePassword={togglePassword}
-            checkConfirmPassword={checkConfirmPassword}
-            handleClick={handleClick}
-            buttonSpinner={buttonSpinner}
-            error={error}
-            passwordValid={passwordValid}
-            emaildValid={emaildValid}
-            setConfirmPassword={setConfirmPassword}
-            confirmPassword={confirmPassword}
-          />
+          {!creationSucccess ? (
+            <SingUpForm
+              handleChange={handleChange}
+              account={account}
+              passwordShown={passwordShown}
+              showPassword={showPassword}
+              toggleShowPassword={toggleShowPassword}
+              togglePassword={togglePassword}
+              checkConfirmPassword={checkConfirmPassword}
+              handleClick={handleClick}
+              buttonSpinner={buttonSpinner}
+              error={error}
+              passwordValid={passwordValid}
+              emaildValid={emaildValid}
+              setConfirmPassword={setConfirmPassword}
+              confirmPassword={confirmPassword}
+            />
+          ) : (
+            <ProfileForm />
+          )}
+
           <SignUpLoginOr>
             <span>or</span>
           </SignUpLoginOr>
@@ -186,5 +199,6 @@ const SignUpLogin = styled.h1`
   }
 `;
 const SignUpFormWrapper = styled.div`
-  width: 100%;
+  width: 50%;
+  /* width: 100%; */
 `;
