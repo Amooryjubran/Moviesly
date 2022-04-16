@@ -2,12 +2,15 @@ import React, { useContext, useState } from "react";
 import styled from "styled-components";
 import CloseIcon from "@mui/icons-material/Close";
 import { UserContext } from "../context/UserContext";
+import { useNavigate } from "react-router-dom";
+
 export default function ProfilePictureForm() {
   const [selectedImage, setSelectedImage] = useState(null);
   const [imgLink, setImgLink] = useState(null);
-  // https://stackoverflow.com/questions/66195106/imgur-api-responding-with-code-403-with-server-error-429
+  const history = useNavigate();
   const {
     state: { user },
+    actions: { receivedUserFromServer },
   } = useContext(UserContext);
   console.log(user);
   const imageUpload = async (e) => {
@@ -16,11 +19,11 @@ export default function ProfilePictureForm() {
     const file = fileIn.files[0];
     if (file && file.size < 5e6) {
       const formData = new FormData();
-      formData.append("image", file);
-      fetch("https://api.imgur.com/3/image", {
+      formData.append("file", file);
+      formData.append("upload_preset", "omargubran");
+      fetch("https://api.cloudinary.com/v1_1/movieslify/upload", {
         method: "POST",
         headers: {
-          Authorization: "Client-ID 908aee85497a6b4",
           Accept: "application/json",
         },
         body: formData,
@@ -28,7 +31,7 @@ export default function ProfilePictureForm() {
         .then((response) => response.json())
         .then((response) => {
           e.preventDefault();
-          setImgLink(response.data.link);
+          setImgLink(response.secure_url);
         });
     } else {
       console.error("oversized file");
@@ -43,8 +46,11 @@ export default function ProfilePictureForm() {
 
     fetch(`/api/profileImg`, {
       method: "PUT",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify({
+        email: user.email,
         profileImg: imgLink,
       }),
     })
@@ -52,13 +58,19 @@ export default function ProfilePictureForm() {
         return res.json();
       })
       .then((data) => {
-        console.log(data);
+        if (data.status === 200) {
+          receivedUserFromServer({ user: data.data });
+          history("/browse", { replace: true });
+        }
       })
       .catch((error) => {
         console.log("error", error);
       });
   };
-  console.log(imgLink);
+  if (user.profileImg) {
+    history("/browse", { replace: true });
+  }
+  console.log(user.profileImg);
   return (
     <Wrapper>
       <Title>Add your profile image</Title>
