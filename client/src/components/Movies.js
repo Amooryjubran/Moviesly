@@ -85,8 +85,9 @@ export default function Movies({ title, url, genre, isLarge }) {
 }
 
 const Wrapper = styled.div`
-  margin: 30px 0;
+  margin: 30px 0 -42px;
   padding: 0 40px;
+  overflow: hidden;
 `;
 
 const Title = styled.h1`
@@ -94,11 +95,13 @@ const Title = styled.h1`
   color: white;
   font-size: 22px;
   padding: 0 0 5px 0;
+  margin-bottom: -40px;
 `;
 
 const MovieCard = styled.div`
   position: relative;
   cursor: pointer;
+  filter: brightness(80%);
 
   &:hover {
     div {
@@ -107,8 +110,9 @@ const MovieCard = styled.div`
     }
     z-index: 20;
     width: auto !important ;
-    transition: all 0.3s ease-in-out;
-    transform: scale(1.5);
+    transition: all 0.5s ease-in-out;
+    transform: scale(1.3);
+    filter: brightness(110%);
   }
 `;
 const MovieImg = styled.img`
@@ -126,12 +130,19 @@ const SliderS = styled(Slider)`
       display: block !important;
     }
   }
+  .slick-slider {
+    margin: -30px 0 0;
+  }
   .slick-slide {
     z-index: 1;
+    margin: 30px 0;
+    position: relative;
   }
   .slick-list {
     overflow: visible;
+    margin: 30px 0;
   }
+
   .slick-next:before,
   .slick-prev:before {
     font-size: 45px;

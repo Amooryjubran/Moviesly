@@ -66,14 +66,24 @@ const Genres = styled.div`
 const Genre = styled.span`
   font-size: 16px;
   border: 1px solid #8a8a8a;
-  padding: 5px;
+  padding: 6px 12px;
+  min-width: fit-content;
   border-radius: 15px;
   text-align: center;
+  overflow: hidden;
   cursor: pointer;
+  margin: 0 6px;
 `;
 const Sliders = styled(Slider)`
-  .slick-slide {
+  .slick .slick-slide {
     padding: 0 5px;
+  }
+  .slick-slide {
+    margin: 0 5px;
+  }
+
+  .slick-list {
+    margin: 0 -5px;
   }
 
   .slick-next:before {
@@ -85,7 +95,7 @@ const Sliders = styled(Slider)`
     border-right: 2px solid black;
     transform: rotate(45deg);
     left: 6px;
-    top: -5px;
+    top: -25px;
   }
 
   .slick-disabled {

@@ -1,15 +1,9 @@
-import { useContext } from "react";
-import Navbar from "../components/Navbar/Navbar";
-import { UserContext } from "../context/UserContext";
+import HeroBanner from "../components/HeroBanner";
 
 export default function Home() {
-  const {
-    state: { user },
-  } = useContext(UserContext);
-
   return (
     <div>
-      <Navbar />
+      <HeroBanner />
     </div>
   );
 }

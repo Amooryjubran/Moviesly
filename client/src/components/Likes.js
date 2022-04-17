@@ -93,18 +93,18 @@ const Container = styled.div`
   flex-direction: column;
   position: absolute;
   bottom: 0;
-  top: 82%;
-  left: 30%;
   background-color: #cc777b;
   border-radius: 10px;
-
   width: 40%;
-  position: absolute;
+  position: fixed;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 20px;
+  top: 50%;
+  transform: translate(0, -50%);
   height: fit-content;
+  box-shadow: 0rem 0rem 100vh 150vh rgb(0 0 0 / 70%);
   > p {
     align-self: baseline;
     margin: 0 30px;
