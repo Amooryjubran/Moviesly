@@ -4,7 +4,6 @@ import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import styled from "styled-components";
 import Wallpapre from "../assets/Popcorn.jpg";
 export default function ProfileHeader({ user }) {
-  console.log(user.profileImg);
   return (
     <Header>
       <ImgWallpaper
@@ -65,9 +64,6 @@ const UserImg = styled.img`
   border-radius: 50%;
   object-fit: cover;
   margin-top: -70px;
-  /* position: absolute; */
-  /* left: 34%;
-  top: -49px; */
   padding: 7px;
   border: 1px solid lightgray;
 `;
@@ -76,7 +72,8 @@ const UserInfo = styled.div`
   flex-direction: column;
 `;
 const UserName = styled.h1`
-  font-weight: 400;
+  font-weight: 800;
+  font-size: 28px;
 `;
 const UserBio = styled.div`
   display: flex;
@@ -86,4 +83,8 @@ const UserTitle = styled.div`
   display: flex;
   gap: 10px;
   align-items: center;
+  > p {
+    font-weight: 400;
+    font-size: 14px;
+  }
 `;
