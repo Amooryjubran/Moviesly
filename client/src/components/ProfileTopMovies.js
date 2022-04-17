@@ -4,7 +4,7 @@ import styled from "styled-components";
 export default function ProfileTopMovies({ settings, user, Sliders }) {
   return (
     <>
-      <Title>Movies To Watch</Title>
+      <Title>Top Movies</Title>
       <Movies>
         <Sliders {...settings}>
           {user.watched.map((top) => (
