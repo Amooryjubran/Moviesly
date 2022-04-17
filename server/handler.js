@@ -331,18 +331,11 @@ const addReview = async (req, res) => {
 };
 
 const addLike = async (req, res) => {
-  const { email, movieId, likes } = req.body;
-
+  const { email, likes } = req.body;
   try {
     await client.connect();
     const db = client.db("Movieslify");
     const emailUsers = await db.collection("users").findOne({ email });
-    // if (!email || !movieId || !likes) {
-    //   return res
-    //     .status(409)
-    //     .json({ status: 409, message: "Please complete your account first" });
-    // }
-
     if (emailUsers) {
       const review = await db.collection("reviews").findOneAndUpdate(
         { email },
@@ -360,9 +353,6 @@ const addLike = async (req, res) => {
           },
         }
       );
-      // const user = await db
-      // .collection("reviews")
-      // .updateOne({ email }, { $pull: { likes: likes } });
     } else {
       return res.status(400).json({
         status: 400,

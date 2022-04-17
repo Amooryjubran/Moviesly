@@ -5,7 +5,6 @@ import ProfileToWatch from "./ProfileToWatch";
 import ProfileTopMovies from "./ProfileTopMovies";
 
 export default function ProfileWatch({ user }) {
-  console.log(user);
   const settings = {
     dots: false,
     infinite: true,

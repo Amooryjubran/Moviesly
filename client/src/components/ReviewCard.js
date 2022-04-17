@@ -17,7 +17,6 @@ export default function ReviewCard({ i, user }) {
   if (!i.likes) {
     return null;
   }
-
   const handleLikes = () => {
     if (!user.email || !currentUser) {
       return;
@@ -44,8 +43,8 @@ export default function ReviewCard({ i, user }) {
       .catch((error) => {
         console.log("error", error);
       });
-    // setReview("");
   };
+
   return (
     <MainDiv>
       <Container>
@@ -128,6 +127,6 @@ const Icons = styled.div`
 `;
 const LikeDiv = styled.div`
   display: flex;
-
+  cursor: pointer;
   gap: 10px;
 `;

@@ -10,19 +10,18 @@ export default function Review() {
   if (!reviews || !users) {
     return null;
   }
-
   const movieIDs = reviews.data.map(
     (movieId) => movieId.movieId === movie && movieId
   );
   return (
     <div>
       <h1>Reviews</h1>
-      {movieIDs.map((review, index) => {
+      {movieIDs.map((review) => {
         if (!review) {
           return null;
         }
         return users.data.map(
-          (user) =>
+          (user, index) =>
             user.email &&
             user.email.includes(review.email) && (
               <ReviewCard key={index} i={review} user={user} />
