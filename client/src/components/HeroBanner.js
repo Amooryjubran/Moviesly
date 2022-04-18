@@ -21,7 +21,7 @@ export default function HeroBanner() {
             </Title>
 
             <LinkHero to="/browse">
-              <HeroBtn>Views</HeroBtn>
+              <HeroBtn>Movies</HeroBtn>
             </LinkHero>
           </HeroText>
         </HeroTextWrapper>
