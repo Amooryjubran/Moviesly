@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "@emotion/styled";
+import styled from "styled-components";
 import { useFetch } from "../hooks/useFetch";
 import { Link } from "react-router-dom";
 
