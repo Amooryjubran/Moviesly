@@ -1,4 +1,5 @@
 import HeroBanner from "../components/HeroBanner";
+import NewsLetter from "../components/NewsLetter";
 import TopMovies from "../components/TopMovies";
 
 export default function Home() {
@@ -6,6 +7,7 @@ export default function Home() {
     <div>
       <HeroBanner />
       <TopMovies />
+      <NewsLetter />
     </div>
   );
 }

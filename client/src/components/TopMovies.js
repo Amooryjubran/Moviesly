@@ -42,6 +42,7 @@ export default function TopMovies() {
 const Wrapper = styled.div`
   margin: 60px auto;
   padding: 0 100px;
+  max-width: 80%;
 `;
 const Movies = styled.div`
   display: grid;

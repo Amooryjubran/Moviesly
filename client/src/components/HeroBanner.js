@@ -1,4 +1,3 @@
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Wallpaper from "../assets/HeroImg.jpg";

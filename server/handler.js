@@ -417,6 +417,33 @@ const addProfileImg = async (req, res) => {
     client.close();
   }
 };
+const newsletter = async (req, res) => {
+  const { email } = req.body;
+  const newsLetterObject = {
+    _id: uuidv4(),
+    email,
+  };
+  try {
+    await client.connect();
+    const db = client.db("Movieslify");
+    const newsletter = await db
+      .collection("newsletter")
+      .insertOne(newsLetterObject);
+    return newsletter
+      ? res.status(200).json({
+          status: 200,
+          data: newsLetterObject,
+          message: "email is added to the newsLetter",
+        })
+      : res
+          .status(400)
+          .json({ status: 400, data: newsLetterObject, message: "error" });
+  } catch (err) {
+    console.log(err);
+  } finally {
+    client.close();
+  }
+};
 module.exports = {
   getUsers,
   getUser,
@@ -430,4 +457,5 @@ module.exports = {
   addGenres,
   addProfileImg,
   addToWatched,
+  newsletter,
 };
