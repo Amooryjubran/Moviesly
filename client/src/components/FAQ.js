@@ -30,10 +30,10 @@ export default function FAQ() {
       {Data.map((i, index) => (
         <Container key={index}>
           <Parent>
-            {!faq ? (
-              <OpenIcon onClick={() => handleFaq(index)} />
-            ) : (
+            {faq === index ? (
               <CloseIcon onClick={() => handleFaq(index)} />
+            ) : (
+              <OpenIcon onClick={() => handleFaq(index)} />
             )}
             <Info>
               <Text>{i.question}</Text>

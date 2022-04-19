@@ -7,11 +7,13 @@ import Movie from "./pages/Movie";
 import Profile from "./pages/Profile";
 import Footer from "./components/Footer";
 import ScrollToTop from "./helper/ScrollToTop";
+import Navbar from "./components/Navbar/Navbar";
 
 function App() {
   return (
     <>
       <ScrollToTop />
+      <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/signup" element={<SignUp />} />

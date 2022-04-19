@@ -59,7 +59,6 @@ export default function ProfilePictureForm() {
       })
       .then((data) => {
         if (data.status === 200) {
-          receivedUserFromServer({ user: data.data });
           history("/browse", { replace: true });
         }
       })

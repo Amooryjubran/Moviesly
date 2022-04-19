@@ -90,11 +90,6 @@ export default function SignUp() {
       });
     setButtonSpinner(!buttonSpinner);
   };
-  // useEffect(() => {
-  //   if (user.firstName) {
-  //     return history("/");
-  //   }
-  // }, [user.firstName]);
   useEffect(() => {
     if (user.firstName) {
       return setCreationSuccess(true);
