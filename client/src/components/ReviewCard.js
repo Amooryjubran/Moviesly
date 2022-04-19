@@ -14,8 +14,10 @@ export default function ReviewCard({ i, user }) {
   const [likeBtn, setLikeBtn] = useState(false);
   const [replys, setReply] = useState("");
   const [showReplys, setShowReplys] = useState(false);
+  console.log(i);
   const {
     state: { user: currentUser },
+    actions: { triggerReload },
   } = useContext(UserContext);
 
   if (!i.likes) {
@@ -30,7 +32,7 @@ export default function ReviewCard({ i, user }) {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        movieId: i._id,
+        reviewId: i._id,
         email: user.email,
         likes: currentUser.email,
       }),
@@ -114,7 +116,12 @@ export default function ReviewCard({ i, user }) {
       <Seperator />
       <Icons>
         <LikeDiv>
-          <FavoriteBorderIcon onClick={handleLikes} />
+          <FavoriteBorderIcon
+            onClick={() => {
+              handleLikes();
+              triggerReload();
+            }}
+          />
           <Likes setLikeBtn={setLikeBtn} likeBtn={likeBtn} i={i} user={user} />
         </LikeDiv>
         <ChatBubbleOutlineIcon onClick={() => setShowReplys(!showReplys)} />
@@ -129,7 +136,14 @@ export default function ReviewCard({ i, user }) {
               value={replys}
               onChange={(e) => setReply(e.target.value)}
             />
-            <button onClick={handleReply}>Send</button>
+            <button
+              onClick={() => {
+                handleReply();
+                triggerReload();
+              }}
+            >
+              Send
+            </button>
           </AddReply>
         </>
       )}

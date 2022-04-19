@@ -16,6 +16,7 @@ const initialState = {
     watchLater: [],
     premiumMember: false,
   },
+  reload: false,
   message: null,
   type: "initial",
 };
@@ -61,6 +62,12 @@ const reducer = (state, action) => {
         ...state,
         ...action,
         status: "user-deleted",
+      };
+    }
+    case "trigger-reload": {
+      return {
+        ...state,
+        reload: !state.reload,
       };
     }
     case "logout-user": {
@@ -123,7 +130,11 @@ export const UserProvider = ({ children }) => {
       type: "delete-user",
     });
   };
-
+  const triggerReload = () => {
+    dispatch({
+      type: "trigger-reload",
+    });
+  };
   const logoutUser = (data) => {
     setLocalStorage({});
     dispatch({
@@ -158,6 +169,7 @@ export const UserProvider = ({ children }) => {
           deleteUser,
           updateUser,
           logoutUser,
+          triggerReload,
         },
       }}
     >

@@ -3,9 +3,13 @@ import { useFetch } from "../hooks/useFetch";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { UserContext } from "../context/UserContext";
 
 export default function Replys({ i }) {
-  const { data } = useFetch("/api/users");
+  const { state } = useContext(UserContext);
+
+  const { data } = useFetch("/api/users", state.reload);
 
   if (!data || !i) {
     return (

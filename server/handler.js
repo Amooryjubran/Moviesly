@@ -10,9 +10,9 @@ const option = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 };
-const client = new MongoClient(MONGO_URI, option);
 
 const getUsers = async (req, res) => {
+  const client = new MongoClient(MONGO_URI, option);
   try {
     await client.connect();
     const db = client.db("Movieslify");
@@ -28,6 +28,8 @@ const getUsers = async (req, res) => {
   }
 };
 const getUser = async (req, res) => {
+  const client = new MongoClient(MONGO_URI, option);
+
   const _id = req.params.profile;
   try {
     await client.connect();
@@ -44,22 +46,26 @@ const getUser = async (req, res) => {
 };
 
 const getReviews = async (req, res) => {
+  const newClient = new MongoClient(MONGO_URI, option);
+
   try {
-    await client.connect();
-    const db = client.db("Movieslify");
+    await newClient.connect();
+    const db = newClient.db("Movieslify");
     const result = await db.collection("reviews").find().toArray();
     return result
       ? res.status(200).json({ status: 200, data: result, message: "success" })
       : res.status(409).json({ status: 409, message: "ERROR" });
   } catch (err) {
     console.log("Error getting list of users", err);
-    res.status(500).json({ status: 500, message: err });
+    res.status(500).json({ status: 500, message: err.message });
   } finally {
-    client.close();
+    newClient.close();
   }
 };
 
 const logInUser = async (req, res) => {
+  const client = new MongoClient(MONGO_URI, option);
+
   const { email, password } = req.body;
 
   try {
@@ -113,6 +119,8 @@ const logInUser = async (req, res) => {
 };
 
 const createUser = async (req, res) => {
+  const client = new MongoClient(MONGO_URI, option);
+
   const { firstName, lastName, email, password } = req.body;
   const userArray = {
     _id: uuidv4(),
@@ -177,6 +185,8 @@ const createUser = async (req, res) => {
   }
 };
 const addToWatchLater = async (req, res) => {
+  const client = new MongoClient(MONGO_URI, option);
+
   const { email, watchLater } = req.body;
   try {
     await client.connect();
@@ -211,6 +221,8 @@ const addToWatchLater = async (req, res) => {
   }
 };
 const addToWatched = async (req, res) => {
+  const client = new MongoClient(MONGO_URI, option);
+
   const { email, watched } = req.body;
   try {
     await client.connect();
@@ -246,6 +258,8 @@ const addToWatched = async (req, res) => {
 };
 
 const addGenres = async (req, res) => {
+  const client = new MongoClient(MONGO_URI, option);
+
   const { email, favoriteGenres } = req.body;
   try {
     await client.connect();
@@ -282,6 +296,8 @@ const addGenres = async (req, res) => {
   }
 };
 const addReview = async (req, res) => {
+  const client = new MongoClient(MONGO_URI, option);
+
   const { email, movieId, review, rating } = req.body;
   const userArray = {
     _id: uuidv4(),
@@ -331,6 +347,8 @@ const addReview = async (req, res) => {
   }
 };
 const addReply = async (req, res) => {
+  const client = new MongoClient(MONGO_URI, option);
+
   const { email, replys, movieId } = req.body;
   const newId = uuidv4();
 
@@ -374,29 +392,29 @@ const addReply = async (req, res) => {
   }
 };
 const addLike = async (req, res) => {
-  const { email, likes } = req.body;
+  const client = new MongoClient(MONGO_URI, option);
+
+  const { email, likes, reviewId } = req.body;
   try {
     await client.connect();
     const db = client.db("Movieslify");
-    const emailUsers = await db.collection("users").findOne({ email });
-    if (emailUsers) {
-      const review = await db.collection("reviews").findOneAndUpdate(
-        { email },
-        {
-          $push: {
-            likes: likes,
-          },
-        }
-      );
-      await db.collection("users").updateOne(
-        { email },
-        {
-          $push: {
-            likes: review.value._id,
-          },
-        }
-      );
-    } else {
+    const review = await db.collection("reviews").findOneAndUpdate(
+      { _id: reviewId },
+      {
+        $push: {
+          likes: likes,
+        },
+      }
+    );
+    await db.collection("users").updateOne(
+      { email },
+      {
+        $push: {
+          likes: review.value._id,
+        },
+      }
+    );
+    if (!review) {
       return res.status(400).json({
         status: 400,
         message: `Not able to add your like to database, user not found`,
@@ -409,6 +427,8 @@ const addLike = async (req, res) => {
   }
 };
 const getLike = async (req, res) => {
+  const client = new MongoClient(MONGO_URI, option);
+
   const { likes } = req.body;
   try {
     await client.connect();
@@ -427,6 +447,8 @@ const getLike = async (req, res) => {
   }
 };
 const addProfileImg = async (req, res) => {
+  const client = new MongoClient(MONGO_URI, option);
+
   const { email, profileImg } = req.body;
   try {
     await client.connect();
@@ -461,6 +483,8 @@ const addProfileImg = async (req, res) => {
   }
 };
 const newsletter = async (req, res) => {
+  const client = new MongoClient(MONGO_URI, option);
+
   const { email } = req.body;
   const newsLetterObject = {
     _id: uuidv4(),

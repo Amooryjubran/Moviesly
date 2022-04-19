@@ -1,11 +1,16 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import CloseIcon from "@mui/icons-material/Close";
+import { UserContext } from "../context/UserContext";
 export default function Likes({ setLikeBtn, likeBtn, i, user }) {
   const [usersLike, setUsersLiked] = useState();
   const [firstLike, setFirstLike] = useState();
-
+  const {
+    state: { reload },
+    actions: { triggerReload },
+  } = useContext(UserContext);
+  console.log(i);
   useEffect(() => {
     fetch(`/api/like`, {
       method: "PUT",
@@ -18,14 +23,15 @@ export default function Likes({ setLikeBtn, likeBtn, i, user }) {
         return res.json();
       })
       .then((data) => {
-        console.log(data);
+        // triggerReload();
         setUsersLiked(data.data);
         setFirstLike(data.data[0]);
       })
       .catch((error) => {
         console.log("error", error);
       });
-  }, []);
+  }, [reload]);
+  console.log(reload);
   if (!firstLike) {
     return null;
   }

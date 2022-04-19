@@ -14,12 +14,14 @@ export default function AddReview() {
   const [userLoggedIn, setUserLoggedIn] = useState(false);
 
   const {
-    state: { user },
+    state: { user, reload },
+    actions: { triggerReload },
   } = useContext(UserContext);
   if (!user) {
     return null;
   }
-  const handleWishList = () => {
+  console.log(reload);
+  const handleReview = () => {
     setButtonSpinner(true);
     if (!user.email) {
       return setUserLoggedIn(true);
@@ -43,6 +45,7 @@ export default function AddReview() {
         return res.json();
       })
       .then((data) => {
+        triggerReload();
         if (data.status === 200) {
           return [setButtonSpinner(false), setError(false)];
         } else if (data.status === 409) {
@@ -91,7 +94,7 @@ export default function AddReview() {
           {userLoggedIn && <Error>Please Login!</Error>}
 
           <Buttons>
-            <CommentBtn disabled={!user.email} onClick={handleWishList}>
+            <CommentBtn disabled={!user.email} onClick={handleReview}>
               {buttonSpinner ? <CircularProgress size={15} /> : <>Post</>}
             </CommentBtn>
             <Cancel onClick={() => setReview("")}>Cancel</Cancel>

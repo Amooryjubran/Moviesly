@@ -21,7 +21,7 @@ const {
 const PORT = 8000;
 
 express()
-  .use(morgan("tiny"))
+  .use(morgan("dev"))
   .use(express.json())
 
   .use(express.static("public"))

@@ -1,12 +1,16 @@
+import { useContext } from "react";
 import { useParams } from "react-router-dom";
+import { UserContext } from "../context/UserContext";
 import { useFetch } from "../hooks/useFetch";
 
 import ReviewCard from "./ReviewCard";
 
 export default function Review() {
   const { movie } = useParams();
-  const { data: reviews } = useFetch("/api/reviews");
-  const { data: users } = useFetch("/api/users");
+  const { state } = useContext(UserContext);
+  const { data: reviews } = useFetch("/api/reviews", state.reload);
+  const { data: users } = useFetch("/api/users", state.reload);
+
   if (!reviews || !users) {
     return null;
   }
