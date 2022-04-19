@@ -8,8 +8,11 @@ import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import { useContext, useState } from "react";
 import { UserContext } from "../context/UserContext";
 import Likes from "./Likes";
+import Replys from "./Replys";
 export default function ReviewCard({ i, user }) {
   const [likeBtn, setLikeBtn] = useState(false);
+  const [replys, setReply] = useState("");
+  const [showReplys, setShowReplys] = useState(false);
   const {
     state: { user: currentUser },
   } = useContext(UserContext);
@@ -21,6 +24,7 @@ export default function ReviewCard({ i, user }) {
     if (!user.email || !currentUser) {
       return;
     }
+
     fetch(`/api/like`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -45,6 +49,33 @@ export default function ReviewCard({ i, user }) {
       });
   };
 
+  const handleReply = () => {
+    if (!user.email || !currentUser) {
+      return;
+    }
+    fetch(`/api/reply`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        movieId: i._id,
+        email: currentUser.email,
+        replys: replys,
+      }),
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        if (data.status === 200) {
+          //   return [setButtonSpinner(false), setError(false)];
+        } else if (data.status === 409) {
+          //   return [setButtonSpinner(false)];
+        }
+      })
+      .catch((error) => {
+        console.log("error", error);
+      });
+  };
   return (
     <MainDiv>
       <Container>
@@ -78,9 +109,22 @@ export default function ReviewCard({ i, user }) {
           <FavoriteBorderIcon onClick={handleLikes} />
           <Likes setLikeBtn={setLikeBtn} likeBtn={likeBtn} i={i} user={user} />
         </LikeDiv>
-        <ChatBubbleOutlineIcon />
+        <ChatBubbleOutlineIcon onClick={() => setShowReplys(!showReplys)} />
         <IosShareIcon />
       </Icons>
+      {showReplys && (
+        <>
+          <Replys i={i} />
+          <AddReply>
+            <Input
+              type="text"
+              value={replys}
+              onChange={(e) => setReply(e.target.value)}
+            />
+            <button onClick={handleReply}>Send</button>
+          </AddReply>
+        </>
+      )}
     </MainDiv>
   );
 }
@@ -116,6 +160,23 @@ const Seperator = styled.hr`
   border: none;
   margin: 20px 0;
 `;
+const AddReply = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 20px;
+
+  > button {
+    background-color: #cc777b;
+    border: none;
+    color: #fff;
+    height: 1.75rem;
+    width: 20%;
+    padding: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 30px;
+  }
+`;
 const Icons = styled.div`
   display: flex;
   align-items: center;
@@ -129,4 +190,15 @@ const LikeDiv = styled.div`
   display: flex;
   cursor: pointer;
   gap: 10px;
+`;
+const Input = styled.input`
+  width: 100%;
+  padding: 7px;
+  margin: 15px 0;
+  border-radius: 20px;
+  border: none;
+  box-shadow: rgb(17 12 46 / 15%) 0px 48px 100px 0px;
+  &:focus {
+    outline: none;
+  }
 `;

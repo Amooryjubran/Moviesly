@@ -16,6 +16,7 @@ const {
   addGenres,
   addProfileImg,
   newsletter,
+  addReply,
 } = require("./handler");
 const PORT = 8000;
 
@@ -31,6 +32,7 @@ express()
   .post("/api/user", createUser)
   .post("/api/login", logInUser)
   .post("/api/review", addReview)
+  .post("/api/reply", addReply)
   .post("/api/like", addLike)
   .post("/api/newsletter", newsletter)
   .put("/api/watchlater", addToWatchLater)

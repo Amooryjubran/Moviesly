@@ -4,8 +4,12 @@ export const useFetch = (url) => {
   const [data, setData] = useState();
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     setLoading(true);
+    if (!url) {
+      return null;
+    }
     fetch(url)
       .then((response) => {
         if (response.ok) {

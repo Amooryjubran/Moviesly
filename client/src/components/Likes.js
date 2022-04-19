@@ -1,12 +1,10 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { useFetch } from "../hooks/useFetch";
 import CloseIcon from "@mui/icons-material/Close";
 export default function Likes({ setLikeBtn, likeBtn, i, user }) {
   const [usersLike, setUsersLiked] = useState();
   const [firstLike, setFirstLike] = useState();
-  console.log(i);
 
   useEffect(() => {
     fetch(`/api/like`, {

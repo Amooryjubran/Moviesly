@@ -125,6 +125,7 @@ const createUser = async (req, res) => {
     watchLater: [],
     reviews: [],
     likes: [],
+    replys: [],
     profileImg: [],
     timeStamp: new Date().toISOString(),
     premiumMember: false,
@@ -329,7 +330,49 @@ const addReview = async (req, res) => {
     client.close();
   }
 };
+const addReply = async (req, res) => {
+  const { email, replys, movieId } = req.body;
+  const newId = uuidv4();
 
+  console.log(movieId);
+  const newArray = {
+    _id: newId,
+    replys: replys,
+    user: email,
+  };
+  try {
+    await client.connect();
+    const db = client.db("Movieslify");
+    const emailUsers = await db.collection("users").findOne({ email });
+    if (!email || !replys || !movieId) {
+      return res
+        .status(409)
+        .json({ status: 409, message: "Please complete your reply" });
+    }
+    if (emailUsers) {
+      const replyNew = await db.collection("reviews").findOneAndUpdate(
+        { _id: movieId },
+        {
+          $push: {
+            replys: newArray,
+          },
+        }
+      );
+      await db.collection("users").updateOne(
+        { email },
+        {
+          $push: {
+            replys: newId,
+          },
+        }
+      );
+    }
+  } catch (err) {
+    console.log(err);
+  } finally {
+    client.close();
+  }
+};
 const addLike = async (req, res) => {
   const { email, likes } = req.body;
   try {
@@ -458,4 +501,5 @@ module.exports = {
   addProfileImg,
   addToWatched,
   newsletter,
+  addReply,
 };
