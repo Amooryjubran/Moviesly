@@ -12,7 +12,6 @@ export default function ProfileInteractions({ user }) {
 
   return (
     <Wrapper>
-      <Title>Reviews</Title>
       {movieReview.map((review, index) => (
         <ReviewCard key={index} i={review} user={user} />
       ))}
@@ -23,8 +22,4 @@ const Wrapper = styled.div`
   box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
   margin: 0 auto;
   height: 100%;
-`;
-const Title = styled.h1`
-  font-size: 16px;
-  color: black;
 `;

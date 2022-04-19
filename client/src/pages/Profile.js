@@ -1,14 +1,18 @@
+import { useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import ProfileHeader from "../components/ProfileHeader";
 import ProfileInteractions from "../components/ProfileInteractions";
 import ProfileWatch from "../components/ProfileWatch";
 import ProfleCategories from "../components/ProfleCategories";
+import Tabs from "../components/Tabs";
 import { useFetch } from "../hooks/useFetch";
 
 export default function Profile() {
   const { profile } = useParams();
   const { data } = useFetch(`/api/user/${profile}`);
+  const [active, setActive] = useState(0);
+
   if (!data) {
     return null;
   }
@@ -16,12 +20,28 @@ export default function Profile() {
   if (!user) {
     return null;
   }
+  const handleClick = (e) => {
+    const index = parseInt(e.target.id, 0);
+    console.log("cliekd");
+    if (index !== active) {
+      setActive(index);
+    }
+  };
   return (
     <Wrapper>
       <ProfileHeader user={user} />
       <Parent>
         <ProfleCategories user={user} />
-        <ProfileInteractions user={user} />
+        <Container>
+          <Tabs active={active} handleClick={handleClick} />
+          <Content active={active === 0}>
+            <ProfileInteractions user={user} />
+          </Content>
+          <Content active={active === 1}>
+            <p>Likes</p>
+          </Content>
+        </Container>
+
         <ProfileWatch user={user} />
       </Parent>
     </Wrapper>
@@ -43,3 +63,9 @@ const Parent = styled.div`
     flex: 2;
   }
 `;
+
+const Content = styled.div`
+  ${(props) => (props.active ? "" : "display:none")}
+`;
+
+const Container = styled.div``;

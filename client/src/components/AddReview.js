@@ -178,10 +178,10 @@ const Login = styled.div`
   flex-direction: column;
   gap: 20px;
   box-shadow: none !important;
-  /* height: 100% !important; */
+  height: 90% !important;
   width: 100%;
   position: absolute !important;
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: rgba(255, 255, 255, 0.95);
 
   z-index: 9;
   > button {
