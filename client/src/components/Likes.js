@@ -10,7 +10,6 @@ export default function Likes({ setLikeBtn, likeBtn, i, user }) {
     state: { reload },
     actions: { triggerReload },
   } = useContext(UserContext);
-  console.log(i);
   useEffect(() => {
     fetch(`/api/like`, {
       method: "PUT",
@@ -31,7 +30,6 @@ export default function Likes({ setLikeBtn, likeBtn, i, user }) {
         console.log("error", error);
       });
   }, [reload]);
-  console.log(reload);
   if (!firstLike) {
     return null;
   }

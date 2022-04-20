@@ -14,12 +14,10 @@ export default function ReviewCard({ i, user }) {
   const [likeBtn, setLikeBtn] = useState(false);
   const [replys, setReply] = useState("");
   const [showReplys, setShowReplys] = useState(false);
-  console.log(i);
   const {
     state: { user: currentUser },
     actions: { triggerReload },
   } = useContext(UserContext);
-
   if (!i.likes) {
     return null;
   }
@@ -79,7 +77,6 @@ export default function ReviewCard({ i, user }) {
         console.log("error", error);
       });
   };
-  console.log(user.profileImg);
   return (
     <MainDiv>
       <Container>

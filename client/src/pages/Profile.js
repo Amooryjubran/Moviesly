@@ -2,7 +2,8 @@ import { useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import ProfileHeader from "../components/ProfileHeader";
-import ProfileInteractions from "../components/ProfileInteractions";
+import ProfileLikes from "../components/ProfileLikes";
+import ProfileReview from "../components/ProfileReview";
 import ProfileWatch from "../components/ProfileWatch";
 import ProfleCategories from "../components/ProfleCategories";
 import Tabs from "../components/Tabs";
@@ -35,10 +36,10 @@ export default function Profile() {
         <Container>
           <Tabs active={active} handleClick={handleClick} />
           <Content active={active === 0}>
-            <ProfileInteractions user={user} />
+            <ProfileReview user={user} />
           </Content>
           <Content active={active === 1}>
-            <p>Likes</p>
+            <ProfileLikes user={user} />
           </Content>
         </Container>
 

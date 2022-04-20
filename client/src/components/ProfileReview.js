@@ -3,18 +3,22 @@ import styled from "styled-components";
 import { useFetch } from "../hooks/useFetch";
 import ReviewCard from "./ReviewCard";
 
-export default function ProfileInteractions({ user }) {
+export default function ProfileReview({ user }) {
   const { data } = useFetch("/api/reviews");
   if (!data) {
     return null;
   }
   const movieReview = data.data.map((x) => x.email === user.email && x);
-
   return (
     <Wrapper>
-      {movieReview.map((review, index) => (
-        <ReviewCard key={index} i={review} user={user} />
-      ))}
+      {movieReview.map((review, index) => {
+        const ids = movieReview.map((o) => o._id);
+        const filtered = movieReview.filter(
+          ({ _id }, index) => !ids.includes(_id, index + 1)
+        );
+        console.log(review);
+        return filtered && <ReviewCard key={index} i={review} user={user} />;
+      })}
     </Wrapper>
   );
 }
