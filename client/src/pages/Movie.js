@@ -23,7 +23,7 @@ export default function Movie() {
   }
   return (
     <>
-      <MovieHeader data={data} />
+      <MovieHeader data={data} movie={movie} />
       <Container>
         <Sidebar data={data} />
         <Reviews />

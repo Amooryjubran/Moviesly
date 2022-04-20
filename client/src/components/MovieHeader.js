@@ -3,14 +3,22 @@ import Rating from "@mui/material/Rating";
 import Stack from "@mui/material/Stack";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import VisibilityIcon from "@mui/icons-material/Visibility";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { UserContext } from "../context/UserContext";
 import { UsePut } from "../hooks/UsePut";
-export default function MovieHeader({ data }) {
+import { useFetch } from "../hooks/useFetch";
+export default function MovieHeader({ data, movie }) {
+  const [show, setShow] = useState(false);
   const {
     state: { user },
     actions: { updateUser },
   } = useContext(UserContext);
+  const { data: whereToWatch } = useFetch(
+    `${process.env.REACT_APP_BASE_URL}/movie/${movie}/watch/providers?api_key=${process.env.REACT_APP_API_KEY}`
+  );
+  if (!whereToWatch) {
+    return null;
+  }
   const [handlePut, checkWatchLater] = UsePut({
     user: user,
     data: data,
@@ -35,7 +43,6 @@ export default function MovieHeader({ data }) {
     },
     update: { user: { ...user, watched: user.watched } },
   });
-  console.log(checkWatchLater);
   return (
     <Header
       style={{
@@ -73,11 +80,55 @@ export default function MovieHeader({ data }) {
         <p>{data.overview}</p>
         <Seperator />
         <BTNS>
-          <WatchBTN>
-            <LinkBtn href={`https://www.imdb.com/title/${data.imdb_id}`}>
-              Watch
-            </LinkBtn>
-          </WatchBTN>
+          <WatchParent>
+            <WatchBTN onClick={() => setShow(!show)}>Watch</WatchBTN>
+            {show && (
+              <WatchItParent>
+                {whereToWatch.results.CA.buy && (
+                  <>
+                    <p>Buy it on</p>
+                    <Seperator />
+                    <WatchIt>
+                      {whereToWatch.results.CA.buy.map((watch) => (
+                        <WatchImg
+                          src={`${process.env.REACT_APP_BASE_IMG}${watch.logo_path}`}
+                          alt={watch.id}
+                        />
+                      ))}
+                    </WatchIt>
+                  </>
+                )}
+                {whereToWatch.results.CA.rent && (
+                  <>
+                    <p>Rent it on</p>
+                    <Seperator />
+                    <WatchIt>
+                      {whereToWatch.results.CA.rent.map((watch) => (
+                        <WatchImg
+                          src={`${process.env.REACT_APP_BASE_IMG}${watch.logo_path}`}
+                          alt={watch.id}
+                        />
+                      ))}
+                    </WatchIt>
+                  </>
+                )}
+                {whereToWatch.results.CA.flatrate && (
+                  <>
+                    <p>Flatrate</p>
+                    <Seperator />
+                    <WatchIt>
+                      {whereToWatch.results.CA.flatrate.map((watch) => (
+                        <WatchImg
+                          src={`${process.env.REACT_APP_BASE_IMG}${watch.logo_path}`}
+                          alt={watch.id}
+                        />
+                      ))}
+                    </WatchIt>
+                  </>
+                )}
+              </WatchItParent>
+            )}
+          </WatchParent>
 
           <Add state={checkWatchLater} onClick={() => handlePut()} />
           <Eye state={checkWatched} onClick={() => handleWatched()} />
@@ -149,17 +200,41 @@ const WatchBTN = styled.button`
   color: #fff;
   letter-spacing: 0.061rem;
   height: 2.75rem;
-  width: 40%;
+  width: 100%;
+  padding: 5px 20px;
   font-size: 1.2rem;
   cursor: pointer;
   border-radius: 30px;
 `;
-const LinkBtn = styled.a`
-  color: white;
-  text-decoration: none;
-`;
+
 const Seperator = styled.hr`
   height: 1px;
   background-color: #354230;
   border: none;
+`;
+const WatchParent = styled.div`
+  position: relative;
+`;
+const WatchImg = styled.img`
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+`;
+const WatchIt = styled.div`
+  display: flex;
+  margin: 10px 0;
+  gap: 20px;
+`;
+const WatchItParent = styled.div`
+  position: absolute;
+  color: white;
+  background: #000;
+  padding: 30px;
+  top: 55px;
+  border-radius: 10px;
+  box-shadow: 2px 2px 15px 2px #ffffff;
+  z-index: 99999;
+  > p {
+    margin: 0 0 10px;
+  }
 `;
