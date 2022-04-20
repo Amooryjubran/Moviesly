@@ -69,7 +69,6 @@ export default function ProfilePictureForm() {
   if (user.profileImg) {
     history("/browse", { replace: true });
   }
-  console.log(user.profileImg);
   return (
     <Wrapper>
       <Title>Add your profile image</Title>

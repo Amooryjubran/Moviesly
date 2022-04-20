@@ -8,7 +8,6 @@ export default function ProfileLikes({ user }) {
   if (!data) {
     return null;
   }
-  console.log(data);
   const movieReview = data.data.map(
     (x) =>
       x.likes &&

@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import Slider from "react-slick";
 import styled from "styled-components";
 
 export default function GenresForm({ settings, data, user, updateUser }) {
+  const [likedGenre, setLikedGenre] = useState(null);
   return (
     <>
       <Title>What's your faviourite genres ?</Title>
@@ -14,10 +15,10 @@ export default function GenresForm({ settings, data, user, updateUser }) {
                 return;
               }
               const genreId = genre.id;
+              console.log(genreId);
               const findGenre = user.favoriteGenres.findIndex(
                 (item) => item.id === genreId
               );
-              console.log(findGenre);
               const copy = user.favoriteGenres;
               if (findGenre === -1) {
                 copy.push(genre);
@@ -25,7 +26,7 @@ export default function GenresForm({ settings, data, user, updateUser }) {
                 copy.splice(findGenre, 1);
               }
               updateUser({ user: { ...user, favoriteGenres: copy } });
-              console.log(copy);
+              setLikedGenre(copy);
               fetch(`/api/genres`, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
@@ -38,7 +39,7 @@ export default function GenresForm({ settings, data, user, updateUser }) {
                   return res.json();
                 })
                 .then((data) => {
-                  console.log(data);
+                  // console.log(data);
                 })
                 .catch((error) => {
                   console.log("error", error);
@@ -51,10 +52,23 @@ export default function GenresForm({ settings, data, user, updateUser }) {
             );
           })}
         </Sliders>
+        <LikedGenres>
+          {likedGenre &&
+            likedGenre.map((genres) => (
+              <Genre key={genres.id}>{genres.name}</Genre>
+            ))}
+        </LikedGenres>
       </Genres>
     </>
   );
 }
+
+const LikedGenres = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  justify-content: center;
+`;
 
 const Title = styled.h1`
   font-size: 20px;

@@ -2,7 +2,8 @@ import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import signUpWallpaper from "../assets/signUp.jpg";
 import SingUpForm from "../components/SignUpForm";
-import Logo from "../assets/Nike.png";
+import Logo from "../assets/MoviesLify-logos_black.png";
+import SmallLogo from "../assets/MoviesLify-small-logo.jpg";
 import "./signup.css";
 import styled from "styled-components";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
@@ -132,17 +133,18 @@ export default function SignUp() {
           <SignUpLogin>
             Aready have an account ? <Link to="/login">Log In</Link>
           </SignUpLogin>
-          <img src={Logo} alt="logoG" className="signUpLogoG" />
+          <SignUpMiniLogo src={SmallLogo} alt="logoG" />
         </SignUpFormWrapper>
       </SignUpWrapper>
     </SignUpContainer>
   );
 }
 const SignUpContainer = styled.div`
-  margin: 4rem 0;
+  margin: 4rem auto;
+  max-width: 75%;
 `;
 const SignUpWrapper = styled.div`
-  max-width: 75%;
+  max-width: 100%;
 
   font-family: "Work Sans", sans-serif;
   display: flex;
@@ -157,7 +159,7 @@ const SignUpDiv = styled.div`
   background-repeat: no-repeat;
   position: relative;
   padding: 2rem;
-  width: 100%;
+  width: 70%;
   min-height: 20rem;
   justify-content: space-evenly;
   box-shadow: 11px 15px 25px 0 #f5f5f5;
@@ -165,7 +167,18 @@ const SignUpDiv = styled.div`
 const SignUpLogo = styled.img`
   display: block;
   margin: 30px auto;
-  height: 20px;
+  height: 100px;
+  width: 250px;
+  object-fit: contain;
+  transform: scale(2.5);
+`;
+const SignUpMiniLogo = styled.img`
+  display: block;
+  margin: 10px auto;
+  height: 30px;
+  width: 70px;
+  object-fit: contain;
+  transform: scale(1);
 `;
 const SingUpHeader = styled.h1`
   color: #8a8a8a;

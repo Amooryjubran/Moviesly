@@ -1,5 +1,4 @@
-import Logo from "../../assets/Nike.png";
-import MenuIcon from "@mui/icons-material/Menu";
+import Logo from "../../assets/MoviesLify-logo-white.png";
 import PersonIcon from "@mui/icons-material/Person";
 import styled from "styled-components";
 import { useContext, useState } from "react";
@@ -21,7 +20,6 @@ export default function Navbar() {
   return (
     <Wrapper>
       <Container>
-        <MenuIcon />
         <Link to="/">
           <LogoImg src={Logo} alt="logo" />
         </Link>
@@ -94,9 +92,10 @@ const Container = styled.div`
   }
 `;
 const LogoImg = styled.img`
-  height: 75px;
-  width: 150px;
+  height: 100px;
+  width: 250px;
   object-fit: contain;
+  transform: scale(2.5);
 `;
 
 const Btn = styled.button`

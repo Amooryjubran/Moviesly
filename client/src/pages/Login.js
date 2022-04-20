@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import signUpWallpaper from "../assets/signUp.jpg";
-import Logo from "../assets/Nike.png";
+import Logo from "../assets/MoviesLify-logos_black.png";
 import "./signup.css";
 import styled from "styled-components";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
@@ -142,7 +142,10 @@ const LoginDiv = styled.div`
 const LoginLogo = styled.img`
   display: block;
   margin: 30px auto;
-  height: 20px;
+  height: 100px;
+  width: 250px;
+  object-fit: contain;
+  transform: scale(2.5);
 `;
 const LoginHeader = styled.h1`
   color: #8a8a8a;
