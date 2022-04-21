@@ -7,15 +7,16 @@ import { useContext, useState } from "react";
 import { UserContext } from "../context/UserContext";
 import { UsePut } from "../hooks/UsePut";
 import { useFetch } from "../hooks/useFetch";
-export default function MovieHeader({ data, movie }) {
+export default function MovieHeader({ data, movie, type }) {
   const [show, setShow] = useState(false);
   const {
     state: { user },
     actions: { updateUser },
   } = useContext(UserContext);
   const { data: whereToWatch } = useFetch(
-    `${process.env.REACT_APP_BASE_URL}/movie/${movie}/watch/providers?api_key=${process.env.REACT_APP_API_KEY}`
+    `${process.env.REACT_APP_BASE_URL}/${type}/${movie}/watch/providers?api_key=${process.env.REACT_APP_API_KEY}`
   );
+  console.log(whereToWatch);
   if (!whereToWatch) {
     return null;
   }
@@ -81,7 +82,16 @@ export default function MovieHeader({ data, movie }) {
         <Seperator />
         <BTNS>
           <WatchParent>
-            <WatchBTN onClick={() => setShow(!show)}>Watch</WatchBTN>
+            <WatchBTN
+              disabled={
+                !whereToWatch ||
+                !whereToWatch.results.CA ||
+                whereToWatch.results.length === 0
+              }
+              onClick={() => setShow(!show)}
+            >
+              Watch
+            </WatchBTN>
             {show && (
               <WatchItParent>
                 {whereToWatch.results.CA.buy && (

@@ -46,7 +46,10 @@ export default function Navbar() {
                     <p>{currentUser.email}</p>
                   </UserName>
                 </UserWrapper>
-                <Link to={`/${currentUser._id}`}>
+                <Link
+                  style={{ textDecoration: "none" }}
+                  to={`/${currentUser._id}`}
+                >
                   <Btn>Profile</Btn>
                 </Link>
                 <Seperator />

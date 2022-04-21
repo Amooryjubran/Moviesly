@@ -7,23 +7,22 @@ import NewsBar from "../components/NewsBar";
 import Reviews from "../components/Reviews";
 
 export default function Movie() {
-  const { movie } = useParams();
-
+  const { type, movie } = useParams();
   const API_KEY = "?api_key=";
+
   const URL =
     process.env.REACT_APP_BASE_URL +
-    process.env.REACT_APP_MOVIE_ID +
+    `/${type}/` +
     movie +
     API_KEY +
     process.env.REACT_APP_API_KEY;
-
   const { data } = useFetch(URL);
   if (!data) {
     return null;
   }
   return (
     <>
-      <MovieHeader data={data} movie={movie} />
+      <MovieHeader data={data} movie={movie} type={type} />
       <Container>
         <Sidebar data={data} />
         <Reviews />

@@ -17,6 +17,7 @@ export default function Movies({ title, url, genre, isLarge }) {
   if (!data) {
     return null;
   }
+  console.log(data);
   const settings = {
     dots: false,
     arrows: true,
@@ -62,9 +63,14 @@ export default function Movies({ title, url, genre, isLarge }) {
           if (!movie) {
             return null;
           }
+
           return (
             <MovieCard key={movie.id}>
-              <LinkMovie to={`/browse/${movie.id}`}>
+              <LinkMovie
+                to={`/browse/${movie.media_type ? movie.media_type : "movie"}/${
+                  movie.id
+                }`}
+              >
                 <MovieImg
                   state={isLarge}
                   src={

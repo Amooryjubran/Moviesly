@@ -112,6 +112,7 @@ const Container = styled.div`
   transform: translate(0, -50%);
   height: fit-content;
   box-shadow: 0rem 0rem 100vh 150vh rgb(0 0 0 / 70%);
+  z-index: 9;
   > p {
     align-self: baseline;
     margin: 0 30px;

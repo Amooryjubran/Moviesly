@@ -13,7 +13,7 @@ export default function FAQ() {
   const Data = [
     {
       question: "Why would I use MoviesLify instead of Rotten Tomatoes ?",
-      answer: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio",
+      answer: "You tell me!",
     },
     {
       question: "Is this going to sell my data ?",

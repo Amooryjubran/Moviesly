@@ -20,7 +20,6 @@ export default function AddReview() {
   if (!user) {
     return null;
   }
-  console.log(reload);
   const handleReview = () => {
     setButtonSpinner(true);
     if (!user.email) {
