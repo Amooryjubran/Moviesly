@@ -17,7 +17,6 @@ export default function Movies({ title, url, genre, isLarge }) {
   if (!data) {
     return null;
   }
-  console.log(data);
   const settings = {
     dots: false,
     arrows: true,

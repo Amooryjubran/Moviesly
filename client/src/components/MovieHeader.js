@@ -16,7 +16,6 @@ export default function MovieHeader({ data, movie, type }) {
   const { data: whereToWatch } = useFetch(
     `${process.env.REACT_APP_BASE_URL}/${type}/${movie}/watch/providers?api_key=${process.env.REACT_APP_API_KEY}`
   );
-  console.log(whereToWatch);
   if (!whereToWatch) {
     return null;
   }

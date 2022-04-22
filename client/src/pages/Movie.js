@@ -5,6 +5,7 @@ import styled from "styled-components";
 import Sidebar from "../components/Sidebar";
 import NewsBar from "../components/NewsBar";
 import Reviews from "../components/Reviews";
+import Casts from "../components/Casts";
 
 export default function Movie() {
   const { type, movie } = useParams();
@@ -23,6 +24,7 @@ export default function Movie() {
   return (
     <>
       <MovieHeader data={data} movie={movie} type={type} />
+      <Casts type={type} movie={movie} />
       <Container>
         <Sidebar data={data} />
         <Reviews />
