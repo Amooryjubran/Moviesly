@@ -21,7 +21,9 @@ export default function TopMovies() {
         {data.results.slice(0, 8).map((i) => {
           return (
             <Movie key={i.id}>
-              <LinkMovie to={`/browse/${i.id}`}>
+              <LinkMovie
+                to={`/browse/${i.media_type ? i.media_type : "movie"}/${i.id}`}
+              >
                 <MovieImage
                   src={
                     i.backdrop_path
