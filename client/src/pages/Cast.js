@@ -1,4 +1,5 @@
 import { useParams } from "react-router-dom";
+import CastHeader from "../components/CastHeader";
 import { useFetch } from "../hooks/useFetch";
 
 export default function Cast() {
@@ -9,5 +10,9 @@ export default function Cast() {
   if (!data) {
     return null;
   }
-  return <div>Cast</div>;
+  return (
+    <div>
+      <CastHeader data={data} />
+    </div>
+  );
 }
