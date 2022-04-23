@@ -8,6 +8,7 @@ import Profile from "./pages/Profile";
 import Footer from "./components/Footer";
 import ScrollToTop from "./helper/ScrollToTop";
 import Navbar from "./components/Navbar/Navbar";
+import Cast from "./pages/Cast";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
         <Route path="/browse" element={<Browse />} />
+        <Route path="/browse/cast/:cast" element={<Cast />} />
         <Route path="/browse/:type/:movie" element={<Movie />} />
         <Route path="/:profile" element={<Profile />} />
       </Routes>
