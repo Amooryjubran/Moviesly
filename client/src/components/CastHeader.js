@@ -29,9 +29,11 @@ export default function CastHeader({ data }) {
             </>
           )}
         </NameLanguages>
-        <Bithday>
-          <h3>Birthday:</h3> {data.birthday}
-        </Bithday>
+        {data.birthday && (
+          <Bithday>
+            <h3>Birthday:</h3> {data.birthday}
+          </Bithday>
+        )}
         <Job>{data.known_for_department}</Job>
 
         <p>
