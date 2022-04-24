@@ -1,10 +1,20 @@
 import { useState } from "react";
 import styled from "styled-components";
 import PersonPlaceHolder from "../assets/person-placeholder.jpg";
+import { useFetch } from "../hooks/useFetch";
+import FacebookIcon from "@mui/icons-material/Facebook";
+import TwitterIcon from "@mui/icons-material/Twitter";
+import Imdb from "../assets/imdbIcon.png";
+import Instagram from "../assets/Instagram.png";
 
-export default function CastHeader({ data }) {
+export default function CastHeader({ data, cast }) {
   const [show, setShow] = useState(false);
-  console.log(data.biography.length);
+  const { data: social } = useFetch(
+    `${process.env.REACT_APP_BASE_URL}/person/${cast}/external_ids?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`
+  );
+  if (!social) {
+    return null;
+  }
   return (
     <Wrapper>
       <CastImg
@@ -16,7 +26,35 @@ export default function CastHeader({ data }) {
         alt={data.id}
       />
       <Container>
-        <Title>{data.name}</Title>
+        <Header>
+          <Title>{data.name}</Title>
+          <IconsParent>
+            {social.facebook_id && (
+              <LinkSocial
+                href={`https://www.facebook.com/${social.facebook_id}`}
+              >
+                <FacebookIcon />
+              </LinkSocial>
+            )}
+            {social.instagram_id && (
+              <LinkSocial
+                href={`https://www.instagram.com/${social.instagram_id}`}
+              >
+                <SocialIcon src={Instagram} />
+              </LinkSocial>
+            )}
+            {social.facebook_id && (
+              <LinkSocial href={`https://twitter.com/${social.facebook_id}`}>
+                <TwitterIcon />
+              </LinkSocial>
+            )}
+            {social.imdb_id && (
+              <LinkSocial href={`https://www.imdb.com/name/${social.imdb_id}`}>
+                <SocialIcon src={Imdb} />
+              </LinkSocial>
+            )}
+          </IconsParent>
+        </Header>
         <NameLanguages>
           {data.also_known_as.length > 0 && (
             <>
@@ -51,10 +89,29 @@ export default function CastHeader({ data }) {
     </Wrapper>
   );
 }
+const SocialIcon = styled.img`
+  height: 20px;
+`;
 const Title = styled.h1`
   color: black;
   font-size: 34px;
   margin: 0 0 20px;
+`;
+const IconsParent = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 5px;
+`;
+const Header = styled.div`
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+`;
+const LinkSocial = styled.a`
+  text-decoration: none;
+  &:visited {
+    color: blue;
+  }
 `;
 const KnowWrapper = styled.div`
   margin: 20px 0;

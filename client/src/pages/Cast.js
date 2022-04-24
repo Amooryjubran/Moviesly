@@ -13,7 +13,7 @@ export default function Cast() {
   }
   return (
     <div>
-      <CastHeader data={data} />
+      <CastHeader data={data} cast={cast} />
       <CastMovies cast={cast} />
     </div>
   );
