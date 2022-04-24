@@ -4,9 +4,8 @@ import { useFetch } from "../hooks/useFetch";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import MovieHover from "./MovieHover";
-import { Link } from "react-router-dom";
-export default function Movies({ title, url, genre, isLarge }) {
+import MovieCard from "./MovieCard";
+export default function Movies({ title, url, genre, isLarge, movie }) {
   const urlLink =
     process.env.REACT_APP_BASE_URL +
     url +
@@ -62,27 +61,7 @@ export default function Movies({ title, url, genre, isLarge }) {
           if (!movie) {
             return null;
           }
-
-          return (
-            <MovieCard key={movie.id}>
-              <LinkMovie
-                to={`/browse/${movie.media_type ? movie.media_type : "movie"}/${
-                  movie.id
-                }`}
-              >
-                <MovieImg
-                  state={isLarge}
-                  src={
-                    movie.backdrop_path
-                      ? `${process.env.REACT_APP_BASE_IMG}${movie.backdrop_path}`
-                      : `${process.env.REACT_APP_BASE_IMG}${movie.poster_path}`
-                  }
-                  alt={movie.id}
-                />
-                <MovieHover movie={movie} isLarge={isLarge} />
-              </LinkMovie>
-            </MovieCard>
-          );
+          return <MovieCard isLarge={isLarge} movie={movie} />;
         })}
       </SliderS>
     </Wrapper>
@@ -103,29 +82,6 @@ const Title = styled.h1`
   margin-bottom: -40px;
 `;
 
-const MovieCard = styled.div`
-  position: relative;
-  cursor: pointer;
-  filter: brightness(80%);
-
-  &:hover {
-    div {
-      display: block;
-      z-index: 50;
-    }
-    z-index: 20;
-    width: auto !important ;
-    transition: all 0.5s ease-in-out;
-    transform: scale(1.3);
-    filter: brightness(110%);
-  }
-`;
-const MovieImg = styled.img`
-  height: ${(props) => (props.state ? "250px" : "100px")};
-  width: ${(props) => (props.state ? "170px" : "177px")};
-  object-fit: cover;
-  border-radius: 5px;
-`;
 const SliderS = styled(Slider)`
   .slick-arrow {
     display: none !important;
@@ -191,9 +147,4 @@ const SliderS = styled(Slider)`
   .slick-disabled {
     opacity: 0% !important;
   }
-`;
-
-const LinkMovie = styled(Link)`
-  text-decoration: none;
-  color: white;
 `;

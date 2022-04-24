@@ -53,7 +53,8 @@ const MovieInfo = styled.p`
 `;
 const MovieOnHover = styled.div`
   position: absolute;
-  top: ${(props) => (props.state ? "55%" : "30%")};
+  top: ${(props) =>
+    props.state === false ? "70%" : props.state === true ? "55%" : "30%"};
   margin: 0 auto;
   padding: 15px;
   background: #7a6468;
@@ -61,6 +62,7 @@ const MovieOnHover = styled.div`
   background: -moz-radial-gradient(top, #7a6468, #4926b3);
   background: radial-gradient(to bottom, #7a6468, #4926b3);
   display: none;
+  width: 100%;
 `;
 const Icons = styled.div`
   display: flex;
