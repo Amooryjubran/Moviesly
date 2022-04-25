@@ -4,11 +4,13 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import ActorsCard from "./ActorsCard";
 import styled from "styled-components";
-
-export default function Casts({ type, movie }) {
+export default function TrendingActors() {
   const { data } = useFetch(
-    `${process.env.REACT_APP_BASE_URL}/${type}/${movie}/credits?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`
+    `${process.env.REACT_APP_BASE_URL}/person/popular?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&page=1`
   );
+  if (!data) {
+    return null;
+  }
   const settings = {
     dots: false,
     infinite: false,
@@ -46,27 +48,22 @@ export default function Casts({ type, movie }) {
       },
     ],
   };
-
-  if (!data) {
-    return null;
-  }
   return (
     <Wrapper>
-      <Title>Casts</Title>
+      <Title>Trending Actors</Title>
       <SliderS {...settings}>
-        {data.cast.map((cast) => {
+        {data.results.map((cast) => {
           if (!cast) {
             return null;
           }
-          return <ActorsCard cast={cast} />;
+          return <ActorsCard key={cast.id} cast={cast} />;
         })}
       </SliderS>
     </Wrapper>
   );
 }
-
 const Wrapper = styled.div`
-  margin: 30px auto -42px;
+  margin: 40px auto;
   padding: 0 40px;
   overflow: hidden;
 `;
