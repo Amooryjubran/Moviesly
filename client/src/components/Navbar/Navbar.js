@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { useContext, useState } from "react";
 import { UserContext } from "../../context/UserContext";
 import { Link } from "react-router-dom";
+import SearchBar from "../SearchBar";
 
 export default function Navbar() {
   const [showSidebar, setShowSidebar] = useState(false);
@@ -25,6 +26,7 @@ export default function Navbar() {
         </Link>
       </Container>
       <Container>
+        <SearchBar />
         {currentUser.firstName ? (
           <Parent>
             <PersonIcon onClick={() => setShowSidebar(!showSidebar)} />

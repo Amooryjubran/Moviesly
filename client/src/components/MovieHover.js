@@ -24,7 +24,9 @@ export default function MovieHover({ movie, isLarge }) {
       </Top>
       <Middle>
         <MovieTitle>{movie.title ? movie.title : movie.name}</MovieTitle>
-        <MovieInfo>{movie.overview.substring(0, 100)}...</MovieInfo>
+        {movie.overview && (
+          <MovieInfo>{movie.overview.substring(0, 100)}...</MovieInfo>
+        )}
       </Middle>
 
       <Bottom>

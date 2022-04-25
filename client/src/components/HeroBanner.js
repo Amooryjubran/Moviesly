@@ -26,7 +26,6 @@ export default function HeroBanner() {
           </HeroText>
         </HeroTextWrapper>
       </HeroBanners>
-      <SearchBar />
     </>
   );
 }
