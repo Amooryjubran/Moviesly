@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Wallpaper from "../assets/HeroImg.jpg";
-import SearchBar from "./SearchBar";
 
 export default function HeroBanner() {
   return (
@@ -38,12 +37,20 @@ const HeroBanners = styled.div`
   display: flex;
   align-items: center;
   flex-direction: row;
+  @media (max-width: 1024px) {
+    min-height: 600px;
+    background-position: 0 !important;
+  }
 `;
 const HeroTextWrapper = styled.div`
   position: relative;
   width: 50%;
   padding: 3rem 0px;
   float: right;
+  @media (max-width: 1024px) {
+    width: auto;
+    margin: 0 auto;
+  }
 `;
 const HeroText = styled.div`
   position: relative;
@@ -69,6 +76,9 @@ const HeroText = styled.div`
       opacity: 1;
     }
   }
+  @media (max-width: 1024px) {
+    max-width: 100%;
+  }
 `;
 const Title = styled.h1`
   font-size: clamp(2.5rem, 10vw, 4rem);
@@ -76,7 +86,6 @@ const Title = styled.h1`
   text-transform: uppercase;
   text-align: start;
   margin: 0;
-
   > strong {
     background: rgb(221, 183, 186);
     background: linear-gradient(
@@ -95,6 +104,10 @@ const Title = styled.h1`
   > strong:hover {
     background-size: 100% 88%;
   }
+  @media (max-width: 1024px) {
+    text-align: center;
+    font-size: 30px;
+  }
 `;
 const HeroBtn = styled.button`
   display: block;
@@ -109,7 +122,16 @@ const HeroBtn = styled.button`
   cursor: pointer;
   border-radius: 30px;
   padding: 10px 63px;
+
+  @media (max-width: 1024px) {
+    height: 2.5rem;
+    display: flex;
+    justify-content: center;
+  }
 `;
 const LinkHero = styled(Link)`
   text-decoration: none;
+  @media (max-width: 1024px) {
+    margin: 0 auto;
+  }
 `;

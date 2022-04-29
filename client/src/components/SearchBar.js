@@ -83,6 +83,11 @@ const SearchPopUp = styled.div`
   z-index: 99;
   transition: top ease 5s;
   box-shadow: 0px 68px 207px 200px rgba(0, 0, 0, 0.65);
+  @media (max-width: 1024px) {
+    position: fixed;
+    height: 100%;
+    overflow-y: scroll;
+  }
 `;
 
 const Search = styled(SearchIcon)`
@@ -97,6 +102,9 @@ const SearchHeader = styled.h1`
   color: black;
   font-weight: 400;
   padding: 10px 0;
+  @media (max-width: 1024px) {
+    font-size: 20px;
+  }
 `;
 const Close = styled(CloseIcon)`
   font-size: 18px;
@@ -117,6 +125,9 @@ const SearchItems = styled.div`
   flex-wrap: wrap;
   max-width: 75%;
   margin: 0 auto;
+  @media (max-width: 1024px) {
+    justify-content: center;
+  }
 `;
 const Wrapper = styled.div`
   max-width: 90%;
@@ -126,6 +137,10 @@ const SearchTitle = styled.h1`
   font-weight: 400;
   padding: 0 0 45px 170px;
   font-size: 20px;
+  @media (max-width: 1024px) {
+    text-align: center;
+    padding: 0 50px 50px;
+  }
 `;
 
 const SearchParam = styled.span`

@@ -5,9 +5,12 @@ import { useContext, useState } from "react";
 import { UserContext } from "../../context/UserContext";
 import { Link } from "react-router-dom";
 import SearchBar from "../SearchBar";
-
+import useMediaQuery from "@mui/material/useMediaQuery";
+import MenuIcon from "@mui/icons-material/Menu";
 export default function Navbar() {
   const [showSidebar, setShowSidebar] = useState(false);
+  const [smallSideBar, setSmallSideBar] = useState(false);
+  const matches = useMediaQuery("(max-width:1024px)");
   const {
     state: { user: currentUser },
   } = useContext(UserContext);
@@ -48,12 +51,9 @@ export default function Navbar() {
                     <p>{currentUser.email}</p>
                   </UserName>
                 </UserWrapper>
-                <Link
-                  style={{ textDecoration: "none" }}
-                  to={`/${currentUser._id}`}
-                >
+                <LinkUrl to={`/${currentUser._id}`}>
                   <Btn>Profile</Btn>
-                </Link>
+                </LinkUrl>
                 <Seperator />
                 <Logout onClick={handleLogOut}>Log out</Logout>
               </Sidebar>
@@ -61,16 +61,36 @@ export default function Navbar() {
           </Parent>
         ) : (
           <Btns>
-            <ul>
-              <li>
-                <Link to="/login">Login</Link>
-              </li>
-              <li>
-                <Link to="/signup">
-                  <Btn>SignUp</Btn>
-                </Link>
-              </li>
-            </ul>
+            {!matches ? (
+              <LinksWrapper>
+                <li>
+                  <LinkUrl to="/login">Login</LinkUrl>
+                </li>
+                <li>
+                  <LinkUrl to="/signup">
+                    <Btn>SignUp</Btn>
+                  </LinkUrl>
+                </li>
+              </LinksWrapper>
+            ) : (
+              <Parent>
+                <BurgerMenu onClick={() => setSmallSideBar(!smallSideBar)} />
+                {smallSideBar && (
+                  <Sidebar>
+                    <LinksWrapper>
+                      <li>
+                        <LinkUrl to="/login">Login</LinkUrl>
+                      </li>
+                      <li>
+                        <LinkUrl to="/signup">
+                          <Btn>SignUp</Btn>
+                        </LinkUrl>
+                      </li>
+                    </LinksWrapper>
+                  </Sidebar>
+                )}
+              </Parent>
+            )}
           </Btns>
         )}
       </Container>
@@ -101,6 +121,10 @@ const LogoImg = styled.img`
   width: 250px;
   object-fit: contain;
   transform: scale(2.5);
+  @media (max-width: 1024px) {
+    height: 60px;
+    width: auto;
+  }
 `;
 
 const Btn = styled.button`
@@ -182,4 +206,16 @@ const Seperator = styled.hr`
   background-color: white;
   border: none;
   margin: 20px auto;
+`;
+const BurgerMenu = styled(MenuIcon)`
+  color: white;
+  cursor: pointer;
+`;
+const LinkUrl = styled(Link)`
+  text-decoration: none;
+  color: white;
+`;
+const LinksWrapper = styled.ul`
+  text-decoration: none;
+  list-style: none;
 `;
