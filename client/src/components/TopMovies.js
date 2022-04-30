@@ -45,11 +45,17 @@ const Wrapper = styled.div`
   margin: 60px auto;
   padding: 0 100px;
   max-width: 80%;
+  @media (max-width: 1024px) {
+    padding: inherit;
+  }
 `;
 const Movies = styled.div`
   display: grid;
   grid-template-columns: repeat(4, auto);
   grid-gap: 40px;
+  @media (max-width: 1024px) {
+    grid-template-columns: repeat(2, auto);
+  }
 `;
 const Movie = styled.div`
   margin: 0;
@@ -60,6 +66,9 @@ const Title = styled.h1`
   margin: 30px 0;
   font-size: 28px;
   color: black;
+  @media (max-width: 1024px) {
+    font-size: 24px;
+  }
 `;
 const MovieImage = styled.img`
   border-radius: 10px;

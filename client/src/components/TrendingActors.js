@@ -11,7 +11,7 @@ export default function TrendingActors() {
   if (!data) {
     return null;
   }
-  const settings = {
+  const carouselSettings = {
     dots: false,
     infinite: false,
     slidesToShow: 7,
@@ -21,18 +21,21 @@ export default function TrendingActors() {
 
     responsive: [
       {
-        breakpoint: 1500,
+        breakpoint: 1800,
         settings: {
-          slidesToShow: 5,
-          slidesToScroll: 4,
-          infinite: true,
-          dots: false,
+          slidesToShow: 6,
         },
       },
       {
-        breakpoint: 1024,
+        breakpoint: 1600,
         settings: {
           slidesToShow: 5,
+        },
+      },
+      {
+        breakpoint: 1360,
+        settings: {
+          slidesToShow: 4,
           slidesToScroll: 5,
           infinite: true,
           dots: false,
@@ -40,10 +43,22 @@ export default function TrendingActors() {
       },
 
       {
-        breakpoint: 480,
+        breakpoint: 1024,
         settings: {
           slidesToShow: 3,
           slidesToScroll: 3,
+        },
+      },
+      {
+        breakpoint: 848,
+        settings: {
+          slidesToShow: 2,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 1,
         },
       },
     ],
@@ -51,7 +66,7 @@ export default function TrendingActors() {
   return (
     <Wrapper>
       <Title>Trending Actors</Title>
-      <SliderS {...settings}>
+      <SliderS {...carouselSettings}>
         {data.results.map((cast) => {
           if (!cast) {
             return null;
@@ -72,6 +87,9 @@ const Title = styled.h1`
   color: black;
   font-size: 34px;
   text-align: center;
+  @media (max-width: 1024px) {
+    font-size: 24px;
+  }
 `;
 
 const SliderS = styled(Slider)`

@@ -49,6 +49,9 @@ const Wrapper = styled.div`
   margin: 60px auto;
   padding: 0 100px;
   max-width: 80%;
+  @media (max-width: 1024px) {
+    padding: 0;
+  }
 `;
 const Title = styled.h1`
   text-align: center;

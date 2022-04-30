@@ -15,5 +15,8 @@ const Wrapper = styled.footer`
   background-color: #343434;
   > p {
     color: white;
+    @media (max-width: 1024px) {
+      font-size: 12px;
+    }
   }
 `;

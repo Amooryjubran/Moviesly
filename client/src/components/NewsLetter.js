@@ -83,6 +83,10 @@ const Container = styled.div`
   margin: 80px;
   padding: 60px;
   background: hsla(0, 0%, 100%, 0.55);
+  @media (max-width: 1024px) {
+    margin: 10% auto;
+    max-width: 90%;
+  }
 `;
 const Title = styled.h1`
   font-size: 24px;

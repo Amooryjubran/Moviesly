@@ -40,7 +40,7 @@ const CastCard = styled.div`
       z-index: 50;
     }
     z-index: 20;
-    width: auto !important ;
+    width: 250px;
     transition: all 0.5s ease-in-out;
     transform: scale(1.1);
     filter: brightness(110%);
