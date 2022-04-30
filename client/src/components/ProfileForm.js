@@ -4,6 +4,7 @@ import { UserContext } from "../context/UserContext";
 import { useFetch } from "../hooks/useFetch";
 import GenresForm from "./GenresForm";
 import ProfilePictureForm from "./ProfilePictureForm";
+import { miniSliderSetting as settings } from "../utils/SliderSettings";
 export default function ProfileForm() {
   const urlLink =
     process.env.REACT_APP_BASE_URL +
@@ -18,14 +19,6 @@ export default function ProfileForm() {
   if (!data || !user) {
     return null;
   }
-  const settings = {
-    dots: false,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 5,
-    slidesToScroll: 2,
-    arrows: true,
-  };
 
   return (
     <Wrapper>

@@ -2,9 +2,8 @@ import styled from "@emotion/styled";
 import React from "react";
 import { useFetch } from "../hooks/useFetch";
 import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 import MovieCard from "./MovieCard";
+import { settings } from "../utils/SliderSettings";
 export default function Movies({ title, url, genre, isLarge, movie }) {
   const urlLink =
     process.env.REACT_APP_BASE_URL +
@@ -16,43 +15,6 @@ export default function Movies({ title, url, genre, isLarge, movie }) {
   if (!data) {
     return null;
   }
-  const settings = {
-    dots: false,
-    arrows: true,
-    infinite: false,
-    slidesToShow: 9,
-    slidesToScroll: 4,
-
-    responsive: [
-      {
-        breakpoint: 1500,
-        settings: {
-          slidesToShow: 5,
-          slidesToScroll: 4,
-          infinite: true,
-          dots: false,
-        },
-      },
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 5,
-          slidesToScroll: 5,
-          infinite: true,
-          dots: false,
-        },
-      },
-
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 3,
-        },
-      },
-    ],
-  };
-
   return (
     <Wrapper>
       <Title>{title}</Title>

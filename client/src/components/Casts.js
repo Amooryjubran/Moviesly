@@ -1,59 +1,19 @@
 import { useFetch } from "../hooks/useFetch";
 import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 import ActorsCard from "./ActorsCard";
 import styled from "styled-components";
-
+import { carouselSettings } from "../utils/SliderSettings";
 export default function Casts({ type, movie }) {
   const { data } = useFetch(
     `${process.env.REACT_APP_BASE_URL}/${type}/${movie}/credits?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`
   );
-  const settings = {
-    dots: false,
-    infinite: false,
-    slidesToShow: 7,
-    slidesToScroll: 4,
-    centerMode: false,
-    vertical: false,
-
-    responsive: [
-      {
-        breakpoint: 1500,
-        settings: {
-          slidesToShow: 5,
-          slidesToScroll: 4,
-          infinite: true,
-          dots: false,
-        },
-      },
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 5,
-          slidesToScroll: 5,
-          infinite: true,
-          dots: false,
-        },
-      },
-
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 3,
-        },
-      },
-    ],
-  };
-
   if (!data) {
     return null;
   }
   return (
     <Wrapper>
       <Title>Casts</Title>
-      <SliderS {...settings}>
+      <SliderS {...carouselSettings}>
         {data.cast.map((cast) => {
           if (!cast) {
             return null;

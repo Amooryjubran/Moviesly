@@ -1,15 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import Slider from "react-slick";
+import { miniSliderSetting as settings } from "../utils/SliderSettings";
+
 export default function ProfleCategories({ user }) {
-  const settings = {
-    dots: false,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 2,
-    slidesToScroll: 1,
-    arrows: true,
-  };
   return (
     <Wrapper>
       <Title>Top Genres</Title>

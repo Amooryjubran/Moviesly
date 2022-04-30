@@ -4,6 +4,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import ActorsCard from "./ActorsCard";
 import styled from "styled-components";
+import { carouselSettings } from "../utils/SliderSettings";
 export default function TrendingActors() {
   const { data } = useFetch(
     `${process.env.REACT_APP_BASE_URL}/person/popular?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&page=1`
@@ -11,58 +12,7 @@ export default function TrendingActors() {
   if (!data) {
     return null;
   }
-  const carouselSettings = {
-    dots: false,
-    infinite: false,
-    slidesToShow: 7,
-    slidesToScroll: 4,
-    centerMode: false,
-    vertical: false,
 
-    responsive: [
-      {
-        breakpoint: 1800,
-        settings: {
-          slidesToShow: 6,
-        },
-      },
-      {
-        breakpoint: 1600,
-        settings: {
-          slidesToShow: 5,
-        },
-      },
-      {
-        breakpoint: 1360,
-        settings: {
-          slidesToShow: 4,
-          slidesToScroll: 5,
-          infinite: true,
-          dots: false,
-        },
-      },
-
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 3,
-        },
-      },
-      {
-        breakpoint: 848,
-        settings: {
-          slidesToShow: 2,
-        },
-      },
-      {
-        breakpoint: 600,
-        settings: {
-          slidesToShow: 1,
-        },
-      },
-    ],
-  };
   return (
     <Wrapper>
       <Title>Trending Actors</Title>

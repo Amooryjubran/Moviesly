@@ -3,16 +3,9 @@ import Slider from "react-slick";
 import { Link } from "react-router-dom";
 import ProfileToWatch from "./ProfileToWatch";
 import ProfileTopMovies from "./ProfileTopMovies";
+import { formSliderSetting as settings } from "../utils/SliderSettings";
 
 export default function ProfileWatch({ user }) {
-  const settings = {
-    dots: false,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    arrows: true,
-  };
   return (
     <Wrapper>
       <ProfileToWatch user={user} Sliders={Sliders} settings={settings} />
