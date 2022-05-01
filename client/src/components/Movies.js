@@ -4,7 +4,7 @@ import { useFetch } from "../hooks/useFetch";
 import Slider from "react-slick";
 import MovieCard from "./MovieCard";
 import { settings } from "../utils/SliderSettings";
-export default function Movies({ title, url, genre, isLarge, movie }) {
+export default function Movies({ title, url, genre, isLarge }) {
   const urlLink =
     process.env.REACT_APP_BASE_URL +
     url +

@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import MovieHover from "./MovieHover";
+import moviePlaceHolder from "../assets/movie-placeholder.png";
 
 export default function MovieCard({ movie, isLarge }) {
   return (
@@ -15,7 +16,9 @@ export default function MovieCard({ movie, isLarge }) {
           src={
             movie.backdrop_path
               ? `${process.env.REACT_APP_BASE_IMG}${movie.backdrop_path}`
-              : `${process.env.REACT_APP_BASE_IMG}${movie.poster_path}`
+              : movie.poster_path
+              ? `${process.env.REACT_APP_BASE_IMG}${movie.poster_path}`
+              : moviePlaceHolder
           }
           alt={movie.id}
         />
