@@ -61,18 +61,21 @@ export const settings = {
 
   responsive: [
     {
-      breakpoint: 1500,
+      breakpoint: 1800,
       settings: {
-        slidesToShow: 5,
-        slidesToScroll: 4,
-        infinite: true,
-        dots: false,
+        slidesToShow: 6,
       },
     },
     {
-      breakpoint: 1024,
+      breakpoint: 1600,
       settings: {
         slidesToShow: 5,
+      },
+    },
+    {
+      breakpoint: 1360,
+      settings: {
+        slidesToShow: 4,
         slidesToScroll: 5,
         infinite: true,
         dots: false,
@@ -80,10 +83,24 @@ export const settings = {
     },
 
     {
-      breakpoint: 480,
+      breakpoint: 1024,
       settings: {
         slidesToShow: 3,
-        slidesToScroll: 3,
+        slidesToScroll: 1,
+      },
+    },
+    {
+      breakpoint: 848,
+      settings: {
+        slidesToShow: 2,
+        slidesToScroll: 1,
+      },
+    },
+    {
+      breakpoint: 600,
+      settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1,
       },
     },
   ],

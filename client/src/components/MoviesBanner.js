@@ -1,8 +1,10 @@
 import styled from "styled-components";
 import React from "react";
 import { useFetch } from "../hooks/useFetch";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 export default function MoviesBanner({ url, genre }) {
+  const matches = useMediaQuery("(max-width:1024px)");
   const urlLink =
     process.env.REACT_APP_BASE_URL +
     url +
@@ -30,7 +32,7 @@ export default function MoviesBanner({ url, genre }) {
         </BannerBTNS>
         <BannerDescr>{movie.overview.substring(0, 100)}...</BannerDescr>
       </BannerContainer>
-      <Fade />
+      {!matches && <Fade />}
     </Banner>
   );
 }
@@ -47,11 +49,21 @@ const BannerContainer = styled.div`
   height: 190px;
   display: flex;
   flex-direction: column;
+  @media (max-width: 1024px) {
+    max-width: 100%;
+    padding-top: 0;
+    justify-content: center;
+    height: 100%;
+    gap: 10px;
+  }
 `;
 const BannerTitle = styled.h1`
   font-size: 3rem;
   font-weight: 800;
   padding-bottom: 0.3rem;
+  @media (max-width: 1024px) {
+    font-size: 24px;
+  }
 `;
 
 const BannerBTNS = styled.div``;
@@ -83,6 +95,11 @@ const BannerDescr = styled.h1`
   max-width: 500px;
   height: 80px;
   font-size: 20px;
+  @media (max-width: 1024px) {
+    max-width: 100%;
+    font-size: 18px;
+    padding-top: 0;
+  }
 `;
 const Fade = styled.div`
   height: 425px;

@@ -32,6 +32,10 @@ const MovieImg = styled.img`
   width: ${(props) => (props.state ? "170px" : "177px")};
   object-fit: cover;
   border-radius: 5px;
+  @media (max-width: 1028px) {
+    width: 250px;
+    height: 350px;
+  }
 `;
 const LinkMovie = styled(Link)`
   text-decoration: none;

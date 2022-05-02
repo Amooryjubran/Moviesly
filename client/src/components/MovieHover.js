@@ -65,6 +65,9 @@ const MovieOnHover = styled.div`
   background: radial-gradient(to bottom, #7a6468, #4926b3);
   display: none;
   width: 100%;
+  @media (max-width: 1028px) {
+    top: 80%;
+  }
 `;
 const Icons = styled.div`
   display: flex;
