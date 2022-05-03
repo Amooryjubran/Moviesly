@@ -7,7 +7,7 @@ import Rating from "@mui/material/Rating";
 import Stack from "@mui/material/Stack";
 export default function AddReview() {
   const { movie } = useParams();
-  const [review, setReview] = useState();
+  const [review, setReview] = useState("");
   const [buttonSpinner, setButtonSpinner] = useState(false);
   const [value, setValue] = useState(2);
   const [error, setError] = useState(false);

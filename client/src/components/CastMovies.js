@@ -15,7 +15,7 @@ export default function CastMovies({ cast }) {
       <Title>Also Appeared In</Title>
       <SliderS {...carouselSettings}>
         {data.cast.map((movie) => (
-          <MovieCard movie={movie} isLarge={false} />
+          <MovieCard movie={movie} key={movie.id} isLarge={false} />
         ))}
       </SliderS>
     </Wrapper>

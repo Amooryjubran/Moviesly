@@ -16,11 +16,11 @@ export default function ProfileLikes({ user }) {
   );
   return (
     <Wrapper>
-      {movieReview.map((review, index) => {
+      {movieReview.map((review) => {
         return (
           review &&
           review.length > 0 &&
-          review.map((likeReview) => {
+          review.map((likeReview, index) => {
             return <ReviewCard key={index} i={likeReview} user={user} />;
           })
         );

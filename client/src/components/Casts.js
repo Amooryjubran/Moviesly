@@ -18,7 +18,7 @@ export default function Casts({ type, movie }) {
           if (!cast) {
             return null;
           }
-          return <ActorsCard cast={cast} />;
+          return <ActorsCard cast={cast} key={cast.credit_id} />;
         })}
       </SliderS>
     </Wrapper>

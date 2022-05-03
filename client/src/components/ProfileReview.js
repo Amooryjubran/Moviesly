@@ -16,7 +16,6 @@ export default function ProfileReview({ user }) {
         const filtered = movieReview.filter(
           ({ _id }, index) => !ids.includes(_id, index + 1)
         );
-        console.log(review);
         return filtered && <ReviewCard key={index} i={review} user={user} />;
       })}
     </Wrapper>

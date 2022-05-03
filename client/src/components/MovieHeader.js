@@ -9,6 +9,8 @@ import { UsePut } from "../hooks/UsePut";
 import { useFetch } from "../hooks/useFetch";
 export default function MovieHeader({ data, movie, type }) {
   const [show, setShow] = useState(false);
+  const [updateWatchLater, setUpdateWatchLater] = useState(`false`);
+  const [updateWatched, setUpdateWatched] = useState(`false`);
   const {
     state: { user },
     actions: { updateUser },
@@ -19,7 +21,7 @@ export default function MovieHeader({ data, movie, type }) {
   if (!whereToWatch) {
     return null;
   }
-  const [handlePut, checkWatchLater] = UsePut({
+  const [handlePut] = UsePut({
     user: user,
     data: data,
     updateUser: updateUser,
@@ -30,8 +32,10 @@ export default function MovieHeader({ data, movie, type }) {
       watchLater: user.watchLater,
       email: user.email,
     },
+    isUpdated: updateWatchLater,
+    setIsUpdated: setUpdateWatchLater,
   });
-  const [handleWatched, checkWatched] = UsePut({
+  const [handleWatched] = UsePut({
     user: user,
     data: data,
     updateUser: updateUser,
@@ -42,6 +46,8 @@ export default function MovieHeader({ data, movie, type }) {
       email: user.email,
     },
     update: { user: { ...user, watched: user.watched } },
+    isUpdated: updateWatched,
+    setIsUpdated: setUpdateWatched,
   });
   return (
     <Header
@@ -139,8 +145,8 @@ export default function MovieHeader({ data, movie, type }) {
             )}
           </WatchParent>
 
-          <Add state={checkWatchLater} onClick={() => handlePut()} />
-          <Eye state={checkWatched} onClick={() => handleWatched()} />
+          <Add $state={updateWatchLater} onClick={() => handlePut()} />
+          <Eye $state={updateWatched} onClick={() => handleWatched()} />
         </BTNS>
       </Overview>
     </Header>
@@ -194,12 +200,12 @@ const BTNS = styled.div`
   gap: 25px;
 `;
 const Add = styled(AddCircleOutlineIcon)`
-  color: ${(props) => (props.state === 0 ? "#cc777b" : "white")};
+  color: ${(props) => (!props.$state ? "#cc777b" : "white")};
   font-size: 24px;
   cursor: pointer;
 `;
 const Eye = styled(VisibilityIcon)`
-  color: ${(props) => (props.state === 0 ? "#cc777b" : "white")};
+  color: ${(props) => (!props.$state ? "#cc777b" : "white")};
   font-size: 24px;
   cursor: pointer;
 `;

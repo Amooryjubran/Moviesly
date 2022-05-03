@@ -6,6 +6,8 @@ export const UsePut = ({
   object,
   input,
   update,
+  isUpdated,
+  setIsUpdated,
 }) => {
   const movieId = data.id;
   const findMovie = object.findIndex((item) => item.id === movieId);
@@ -13,7 +15,7 @@ export const UsePut = ({
     if (!user.email) {
       return;
     }
-    console.log(findMovie);
+    setIsUpdated(!isUpdated);
     const copy = object;
     if (findMovie === -1) {
       copy.push(data);
@@ -36,5 +38,5 @@ export const UsePut = ({
         console.log("error", error);
       });
   };
-  return [handlePut, findMovie];
+  return [handlePut];
 };

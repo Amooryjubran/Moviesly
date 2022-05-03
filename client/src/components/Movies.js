@@ -23,7 +23,7 @@ export default function Movies({ title, url, genre, isLarge }) {
           if (!movie) {
             return null;
           }
-          return <MovieCard isLarge={isLarge} movie={movie} />;
+          return <MovieCard isLarge={isLarge} movie={movie} key={movie.id} />;
         })}
       </SliderS>
     </Wrapper>
