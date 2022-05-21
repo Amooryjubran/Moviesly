@@ -20,6 +20,7 @@ export default function MovieCard({ movie, isLarge }) {
               ? `${process.env.REACT_APP_BASE_IMG}${movie.poster_path}`
               : moviePlaceHolder
           }
+          loading="lazy"
           alt={movie.id}
         />
         <MovieHover movie={movie} isLarge={isLarge} />

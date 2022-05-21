@@ -3,6 +3,9 @@ import LanguageIcon from "@mui/icons-material/Language";
 import styled from "@emotion/styled";
 
 export default function Sidebar({ data }) {
+  if (!data) {
+    return;
+  }
   return (
     <Wrapper>
       <Text>
@@ -23,11 +26,13 @@ export default function Sidebar({ data }) {
       <Text>
         <span>Run Time :</span> {data.runtime} minutes
       </Text>
-      <Text>
-        <span>Languages :</span>
-        <Lang />
-        {data.original_language.toUpperCase()}
-      </Text>
+      {data.original_language && (
+        <Text>
+          <span>Languages :</span>
+          <Lang />
+          {data.original_language.toUpperCase()}
+        </Text>
+      )}
     </Wrapper>
   );
 }

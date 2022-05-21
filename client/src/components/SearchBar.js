@@ -3,6 +3,8 @@ import styled from "styled-components";
 import SearchIcon from "@mui/icons-material/Search";
 import { useFetch } from "../hooks/useFetch";
 import MovieCard from "./MovieCard";
+import ActorsCard from "./ActorsCard";
+
 import CloseIcon from "@mui/icons-material/Close";
 export default function SearchBar() {
   const [addWidth, setAddWidth] = useState(false);
@@ -43,7 +45,11 @@ export default function SearchBar() {
                       <div
                         onClick={() => [setAddWidth(!addWidth), setSearch("")]}
                       >
-                        <MovieCard movie={movie} />
+                        {movie.media_type === "person" ? (
+                          <ActorsCard cast={movie} isSmall={true} />
+                        ) : (
+                          <MovieCard movie={movie} />
+                        )}
                       </div>
                     )}
                   </>

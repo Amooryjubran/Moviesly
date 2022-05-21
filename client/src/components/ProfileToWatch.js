@@ -12,6 +12,7 @@ export default function ProfileToWatch({ user, Sliders, settings }) {
               key={watchLater.id}
               alt={watchLater.title}
               src={`${process.env.REACT_APP_BASE_IMG}${watchLater.backdrop_path}`}
+              loading="lazy"
             />
           ))}
         </Sliders>

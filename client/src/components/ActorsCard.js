@@ -2,26 +2,28 @@ import CastHover from "./CastHover";
 import PersonPlaceHolder from "../assets/person-placeholder.jpg";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-export default function ActorsCard({ cast }) {
+export default function ActorsCard({ cast, isSmall }) {
   return (
-    <CastCard key={cast.cast_id}>
+    <CastCard key={cast.cast_id} state={isSmall}>
       <LinkCast to={`/browse/cast/${cast.id}`}>
         <CastImg
+          state={isSmall}
           src={
             cast.profile_path
               ? `${process.env.REACT_APP_BASE_IMG}${cast.profile_path}`
               : PersonPlaceHolder
           }
+          loading="lazy"
           alt={cast.id}
         />
-        <CastHover cast={cast} />
+        <CastHover cast={cast} isSmall={isSmall} />
       </LinkCast>
     </CastCard>
   );
 }
 const CastImg = styled.img`
-  height: 350px;
-  width: 250px;
+  height: ${(props) => (!props.state ? "350px" : "100px")};
+  width: ${(props) => (!props.state ? "250px" : "177px")};
   object-fit: cover;
   border-radius: 5px;
 `;
@@ -40,7 +42,7 @@ const CastCard = styled.div`
       z-index: 50;
     }
     z-index: 20;
-    width: 250px;
+    width: ${(props) => (!props.state ? "250px" : "177px")};
     transition: all 0.5s ease-in-out;
     transform: scale(1.1);
     filter: brightness(110%);

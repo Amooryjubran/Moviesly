@@ -60,6 +60,7 @@ export default function MovieHeader({ data, movie, type }) {
       <Poster
         src={`${process.env.REACT_APP_BASE_IMG}${data.poster_path}`}
         alt=""
+        loading="lazy"
       />
       <Overview>
         <h1>{data.title}</h1>

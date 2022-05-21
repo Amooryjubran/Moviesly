@@ -12,6 +12,7 @@ export default function ProfileTopMovies({ settings, user, Sliders }) {
               key={top.id}
               alt={top.title}
               src={`${process.env.REACT_APP_BASE_IMG}${top.backdrop_path}`}
+              loading="lazy"
             />
           ))}
         </Sliders>

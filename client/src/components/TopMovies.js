@@ -30,6 +30,7 @@ export default function TopMovies() {
                       ? `${process.env.REACT_APP_BASE_IMG}${i.backdrop_path}`
                       : `${process.env.REACT_APP_BASE_IMG}${i.poster_path}`
                   }
+                  loading="lazy"
                   alt={i.id}
                 />
                 <MovieTitle>{i.title ? i.title : i.name}</MovieTitle>

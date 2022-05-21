@@ -2,21 +2,26 @@ import React from "react";
 import styled from "styled-components";
 
 export default function NewsBar({ data }) {
+  if (!data) {
+    return null;
+  }
   return (
     <Wrapper>
       <p>Production Companies :</p>
-      {data.production_companies.map((company) => (
-        <div key={company.id}>
-          <img
-            style={{ width: "240px" }}
-            src={
-              company.logo_path &&
-              `${process.env.REACT_APP_BASE_IMG}${company.logo_path}`
-            }
-            alt=""
-          />
-        </div>
-      ))}
+      {data.production_companies &&
+        data.production_companies.map((company) => (
+          <div key={company.id}>
+            <img
+              style={{ width: "240px" }}
+              src={
+                company.logo_path &&
+                `${process.env.REACT_APP_BASE_IMG}${company.logo_path}`
+              }
+              loading="lazy"
+              alt=""
+            />
+          </div>
+        ))}
       {data.belongs_to_collection && (
         <div>
           <p>Belongs to :</p>
@@ -25,6 +30,7 @@ export default function NewsBar({ data }) {
             style={{ width: "240px" }}
             src={`${process.env.REACT_APP_BASE_IMG}${data.belongs_to_collection.backdrop_path}`}
             alt=""
+            loading="lazy"
           />
         </div>
       )}
