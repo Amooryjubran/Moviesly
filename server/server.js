@@ -18,7 +18,6 @@ const {
   newsletter,
   addReply,
 } = require("./handler");
-const PORT = 8000;
 
 express()
   .use(morgan("dev"))
@@ -51,4 +50,6 @@ express()
     res.status(200).json("I'm the next Mark Zuckerbung")
   )
 
-  .listen(PORT, () => console.info(`Listening on port ${PORT}`));
+  .listen(process.env.PORT || 8000, () =>
+    console.info(`Listening on port ${PORT}`)
+  );
