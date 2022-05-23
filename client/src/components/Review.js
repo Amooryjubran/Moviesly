@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { useParams } from "react-router-dom";
+import styled from "styled-components";
 import { UserContext } from "../context/UserContext";
 import { useFetch } from "../hooks/useFetch";
 
@@ -25,7 +26,7 @@ export default function Review() {
   );
   return (
     <div>
-      <h1>Reviews</h1>
+      <Title>Reviews</Title>
       {movieIDs.map((review) => {
         if (!review) {
           return null;
@@ -41,3 +42,9 @@ export default function Review() {
     </div>
   );
 }
+const Title = styled.h1`
+  @media (max-width: 1024px) {
+    text-align: center;
+    font-size: 24px;
+  }
+`;

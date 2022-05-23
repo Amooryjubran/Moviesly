@@ -49,6 +49,10 @@ const ImgWallpaper = styled.div`
   height: 400px;
   background-size: 100%;
   background-position: 8px -250px;
+  @media (max-width: 1024px) {
+    background-size: 100% 100%;
+    height: 250px;
+  }
 `;
 const Wrapper = styled.div`
   position: relative;
@@ -58,6 +62,10 @@ const Wrapper = styled.div`
   align-items: center;
   gap: 20px;
   box-shadow: 1px 11px 12px 8px rgba(0, 0, 0, 0.2);
+  @media (max-width: 1024px) {
+    flex-direction: column;
+    gap: 10px;
+  }
 `;
 const UserImg = styled.img`
   height: 125px;
@@ -67,6 +75,9 @@ const UserImg = styled.img`
   margin-top: -70px;
   padding: 7px;
   border: 1px solid lightgray;
+  @media (max-width: 1024px) {
+    margin-bottom: -10px;
+  }
 `;
 const UserInfo = styled.div`
   display: flex;
@@ -75,15 +86,32 @@ const UserInfo = styled.div`
 const UserName = styled.h1`
   font-weight: 800;
   font-size: 28px;
+  @media (max-width: 1024px) {
+    font-size: 20px;
+    text-align: center;
+    margin: 0 0 10px;
+  }
 `;
 const UserBio = styled.div`
   display: flex;
   gap: 20px;
+  @media (max-width: 1024px) {
+    flex-direction: column;
+    gap: 10px;
+  }
 `;
 const UserTitle = styled.div`
   display: flex;
   gap: 10px;
   align-items: center;
+  @media (max-width: 1024px) {
+    justify-content: center;
+  }
+  > svg {
+    @media (max-width: 1024px) {
+      font-size: 18px;
+    }
+  }
   > p {
     font-weight: 400;
     font-size: 14px;

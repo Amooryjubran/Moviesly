@@ -7,12 +7,11 @@ export default function NewsBar({ data }) {
   }
   return (
     <Wrapper>
-      <p>Production Companies :</p>
+      <Title>Production Companies :</Title>
       {data.production_companies &&
         data.production_companies.map((company) => (
           <div key={company.id}>
-            <img
-              style={{ width: "240px" }}
+            <Img
               src={
                 company.logo_path &&
                 `${process.env.REACT_APP_BASE_IMG}${company.logo_path}`
@@ -26,8 +25,7 @@ export default function NewsBar({ data }) {
         <div>
           <p>Belongs to :</p>
           <p>{data.belongs_to_collection.name}</p>
-          <img
-            style={{ width: "240px" }}
+          <Img
             src={`${process.env.REACT_APP_BASE_IMG}${data.belongs_to_collection.backdrop_path}`}
             alt=""
             loading="lazy"
@@ -39,4 +37,18 @@ export default function NewsBar({ data }) {
 }
 const Wrapper = styled.div`
   box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+`;
+const Img = styled.img`
+  width: 240px;
+  @media (max-width: 1024px) {
+    width: 100%;
+    margin: 5px 0;
+  }
+`;
+const Title = styled.h1`
+  @media (max-width: 1024px) {
+    text-align: center;
+    font-size: 18px;
+    margin: 0 0 20px;
+  }
 `;

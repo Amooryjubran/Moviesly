@@ -4,11 +4,12 @@ import signUpWallpaper from "../assets/signUp.jpg";
 import SingUpForm from "../components/SignUpForm";
 import Logo from "../assets/MoviesLify-logos_black.png";
 import SmallLogo from "../assets/MoviesLify-small-logo.jpg";
-import "./signup.css";
 import styled from "styled-components";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { UserContext } from "../context/UserContext";
 import ProfileForm from "../components/ProfileForm";
+import useMediaQuery from "@mui/material/useMediaQuery";
+
 export default function SignUp() {
   const [passwordShown, setPasswordShown] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
@@ -20,6 +21,8 @@ export default function SignUp() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [creationSucccess, setCreationSuccess] = useState(false);
   const history = useNavigate();
+  const matches = useMediaQuery("(max-width:1024px)");
+
   const {
     state: { user },
     actions: { loadingUser, receivedUserFromServer, errorFromServerUser },
@@ -98,13 +101,15 @@ export default function SignUp() {
   }, [user.firstName]);
   return (
     <SignUpContainer>
-      <Link to="/">
-        <ArrowBackIcon />
-      </Link>
+      {!matches && (
+        <Link to="/">
+          <ArrowBackIcon />
+        </Link>
+      )}
       <SignUpWrapper>
-        <SignUpDiv />
+        {!matches && <SignUpDiv />}
         <SignUpFormWrapper>
-          <SignUpLogo src={Logo} alt="logo" />
+          {!matches && <SignUpLogo src={Logo} alt="logo" />}
           <SingUpHeader>Welcome to Movieslify</SingUpHeader>
           {!creationSucccess ? (
             <SingUpForm
@@ -142,14 +147,29 @@ export default function SignUp() {
 const SignUpContainer = styled.div`
   margin: 4rem auto;
   max-width: 75%;
+  @media (max-width: 1024px) {
+    margin: 2rem 0;
+    max-width: 100%;
+  }
 `;
 const SignUpWrapper = styled.div`
   max-width: 100%;
-
-  font-family: "Work Sans", sans-serif;
   display: flex;
   justify-content: center;
   margin: 0 auto;
+  @media (max-width: 1024px) {
+    background-image: url(${signUpWallpaper});
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: relative;
+    padding: 2rem;
+    width: 100%;
+    min-height: 20rem;
+    justify-content: space-evenly;
+    box-shadow: 11px 15px 25px 0 #f5f5f5;
+    max-width: 90%;
+  }
 `;
 
 const SignUpDiv = styled.div`
@@ -185,6 +205,9 @@ const SingUpHeader = styled.h1`
   margin: 30px auto 50px;
   text-align: center;
   font-size: 1.4rem;
+  @media (max-width: 1024px) {
+    color: black;
+  }
 `;
 const SignUpLoginOr = styled.h1`
   width: 80%;
@@ -197,6 +220,10 @@ const SignUpLoginOr = styled.h1`
   > span {
     background: #fff;
     padding: 0 10px;
+    @media (max-width: 1024px) {
+      background: none;
+      color: black;
+    }
   }
 `;
 const SignUpLogin = styled.h1`
@@ -208,5 +235,9 @@ const SignUpLogin = styled.h1`
 `;
 const SignUpFormWrapper = styled.div`
   width: 50%;
+  @media (max-width: 1024px) {
+    width: 100%;
+    background: hsla(0, 0%, 100%, 0.55);
+  }
   /* width: 100%; */
 `;

@@ -45,9 +45,7 @@ const Container = styled.div`
   > div:nth-of-type(2) {
     flex: 2;
   }
-  div:nth-of-type(odd) {
-    /* height: 50%;
-    position: sticky;
-    top: 0; */
+  @media (max-width: 1024px) {
+    flex-direction: column;
   }
 `;

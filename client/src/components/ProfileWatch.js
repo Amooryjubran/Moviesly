@@ -20,6 +20,10 @@ const Wrapper = styled.div`
   margin: 0 auto;
   max-width: 25%;
   height: 100%;
+  @media (max-width: 1024px) {
+    max-width: 100%;
+    width: 90%;
+  }
 `;
 
 const Sliders = styled(Slider)`

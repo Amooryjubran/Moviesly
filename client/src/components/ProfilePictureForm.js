@@ -73,7 +73,7 @@ export default function ProfilePictureForm() {
     <Wrapper>
       <Title>Add your profile image</Title>
 
-      <input type="file" name="image" id="upload" onChange={imageUpload} />
+      <Input type="file" name="image" id="upload" onChange={imageUpload} />
 
       <ProfileImgWrapper>
         <ProfileImg
@@ -97,6 +97,9 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
+  @media (max-width: 1024px) {
+    align-items: center;
+  }
 `;
 const Title = styled.h1`
   font-size: 20px;
@@ -137,4 +140,9 @@ const Submit = styled.button`
   font-size: 1.2rem;
   cursor: pointer;
   border-radius: 30px;
+`;
+const Input = styled.input`
+  @media (max-width: 1024px) {
+    margin: 0 auto;
+  }
 `;

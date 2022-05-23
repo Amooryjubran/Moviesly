@@ -24,6 +24,10 @@ const Wrapper = styled.div`
   margin: 0 auto;
   max-width: 30%;
   height: 200px;
+  @media (max-width: 1024px) {
+    width: 90%;
+    max-width: 100%;
+  }
 `;
 const Genres = styled.div`
   margin: 20px 0;

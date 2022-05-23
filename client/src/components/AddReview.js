@@ -122,14 +122,18 @@ const Wrapper = styled.div`
   display: flex;
   gap: 24px;
   box-shadow: none !important;
+  @media (max-width: 1024px) {
+    flex-direction: column;
+  }
 `;
 const ProfileImg = styled.img`
   height: 50px;
   width: 50px;
   border-radius: 50%;
   box-shadow: 0px 6px 5px #ccc;
-
-  /* flex: 1; */
+  @media (max-width: 1024px) {
+    margin: 0 auto;
+  }
 `;
 const InputWrapper = styled.div`
   flex: 2;
@@ -184,8 +188,11 @@ const Login = styled.div`
   width: 100%;
   position: absolute !important;
   background-color: rgba(255, 255, 255, 0.95);
-
   z-index: 9;
+  @media (max-width: 1024px) {
+    width: auto;
+    opacity: 0.8;
+  }
   > button {
     background-color: #cc777b;
     border: none;
@@ -196,6 +203,9 @@ const Login = styled.div`
     font-size: 16px;
     cursor: pointer;
     border-radius: 30px;
+    @media (max-width: 1024px) {
+      width: 100%;
+    }
   }
 `;
 const LinkBtn = styled(Link)`

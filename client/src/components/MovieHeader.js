@@ -163,21 +163,38 @@ const Header = styled.div`
   color: white;
   object-fit: contain;
   height: 600px;
+  @media (max-width: 1024px) {
+    height: 100%;
+    flex-direction: column;
+    padding: 20px 0;
+  }
 `;
 const Poster = styled.img`
   width: 250px;
   height: 400px;
   box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+  @media (max-width: 1024px) {
+    height: 300px;
+    width: 200px;
+  }
 `;
 const Overview = styled.div`
   max-width: 40%;
   display: flex;
   flex-direction: column;
   gap: 20px;
+  @media (max-width: 1024px) {
+    text-align: center;
+    max-width: 80%;
+  }
 `;
 const Genres = styled.div`
   display: flex;
   gap: 15px;
+  @media (max-width: 1024px) {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
 `;
 const Genre = styled.span`
   border: 1px solid lightgray;
@@ -187,6 +204,12 @@ const Genre = styled.span`
 const Categories = styled.div`
   display: flex;
   justify-content: space-between;
+  @media (max-width: 1024px) {
+    gap: 15px;
+    flex-direction: column;
+    margin: 0 auto;
+    align-items: center;
+  }
 `;
 const RatingContainer = styled.div`
   display: flex;
@@ -199,6 +222,9 @@ const BTNS = styled.div`
   display: flex;
   align-items: center;
   gap: 25px;
+  @media (max-width: 1024px) {
+    margin: 0 auto;
+  }
 `;
 const Add = styled(AddCircleOutlineIcon)`
   color: ${(props) => (!props.$state ? "#cc777b" : "white")};

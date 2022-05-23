@@ -37,9 +37,13 @@ const Tab = styled.button`
   color: ${(props) => (props.active ? "white" : "#cc777b")};
   height: ${(props) => (props.active ? "3em" : "2.6em; top:.4em")};
   transition: background-color 0.5s ease-in-out;
-
+  @media (max-width: 1024px) {
+    height: 100%;
+    top: 0;
+  }
   :hover {
     background-color: white;
+    color: #cc777b;
   }
 `;
 const TabsParent = styled.div`

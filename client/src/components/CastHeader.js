@@ -96,16 +96,28 @@ const Title = styled.h1`
   color: black;
   font-size: 34px;
   margin: 0 0 20px;
+  @media (max-width: 1024px) {
+    font-size: 24px;
+  }
 `;
 const IconsParent = styled.div`
   display: flex;
   align-items: center;
   gap: 5px;
+  @media (max-width: 1024px) {
+    gap: 15px;
+  }
 `;
 const Header = styled.div`
   display: flex;
   align-items: baseline;
   gap: 10px;
+  @media (max-width: 1024px) {
+    margin: 20px 0;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
 `;
 const LinkSocial = styled.a`
   text-decoration: none;
@@ -118,6 +130,9 @@ const KnowWrapper = styled.div`
   gap: 10px;
   display: flex;
   flex-wrap: wrap;
+  @media (max-width: 1024px) {
+    justify-content: center;
+  }
 `;
 const Bithday = styled.div`
   display: flex;
@@ -141,6 +156,12 @@ const Wrapper = styled.div`
   margin: 50px auto;
   max-width: 80%;
   padding: 0 50px;
+  @media (max-width: 1024px) {
+    flex-direction: column;
+    padding: 0;
+    align-items: center;
+    max-width: 100%;
+  }
 `;
 const NameLanguages = styled.div``;
 
@@ -153,6 +174,9 @@ const Known = styled.span`
   border-radius: 15px;
   text-align: center;
   overflow: hidden;
+  @media (max-width: 1024px) {
+    font-size: 14px;
+  }
 `;
 const Job = styled.span`
   font-size: 16px;
@@ -163,6 +187,9 @@ const Job = styled.span`
   border-radius: 15px;
   text-align: center;
   overflow: hidden;
+  @media (max-width: 1024px) {
+    width: 100%;
+  }
 `;
 const ReadMore = styled.button`
   cursor: pointer;

@@ -98,6 +98,9 @@ const LoginUpBtn = styled.button`
     height: 20px !important;
     width: 20px !important;
   }
+  @media (max-width: 1024px) {
+    height: 2.4rem;
+  }
 `;
 const Input = styled.input`
   outline: 0;
@@ -106,6 +109,10 @@ const Input = styled.input`
   margin: 0.6rem 0;
   &:focus {
     border-color: #cc777b;
+  }
+  @media (max-width: 1024px) {
+    padding: 10px;
+    border-radius: 50px;
   }
 `;
 

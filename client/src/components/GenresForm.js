@@ -73,6 +73,9 @@ const LikedGenres = styled.div`
 const Title = styled.h1`
   font-size: 20px;
   color: black;
+  @media (max-width: 1024px) {
+    text-align: center;
+  }
 `;
 const Genres = styled.div`
   margin: 20px 0;
@@ -87,6 +90,10 @@ const Genre = styled.span`
   overflow: hidden;
   cursor: pointer;
   margin: 0 6px;
+  @media (max-width: 1024px) {
+    border: 1px solid black;
+    padding: 6px;
+  }
 `;
 const Sliders = styled(Slider)`
   .slick .slick-slide {
@@ -110,6 +117,9 @@ const Sliders = styled(Slider)`
     transform: rotate(45deg);
     left: 6px;
     top: -25px;
+  }
+  .slick-prev:before {
+    display: none;
   }
 
   .slick-disabled {

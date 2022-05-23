@@ -104,13 +104,13 @@ export default function ReviewCard({ i, user }) {
             </Stack>
           </Wrapper>
           {i.timeStamp ? (
-            <p>{moment(i.timeStamp).format("lll")}</p>
+            <TimeStamp>{moment(i.timeStamp).format("lll")}</TimeStamp>
           ) : (
-            <p>Recently</p>
+            <TimeStamp>Recently</TimeStamp>
           )}
         </Parent>
       </Container>
-      <p>{i.review}</p>
+      <ReviewText>{i.review}</ReviewText>
       <Seperator />
       <Icons>
         <LikeDiv>
@@ -154,11 +154,18 @@ const MainDiv = styled.div`
   padding: 15px;
   margin: 10px 0;
   border-radius: 7px;
+  @media (max-width: 1024px) {
+    padding: 5px;
+  }
 `;
 const UserIMG = styled.img`
   height: 25px;
   width: 25px;
   border-radius: 50%;
+  @media (max-width: 1024px) {
+    height: 50px;
+    width: 50px;
+  }
 `;
 const Parent = styled.div`
   display: flex;
@@ -169,10 +176,20 @@ const Container = styled.div`
   display: flex;
   gap: 20px;
   margin: 20px 0;
+  @media (max-width: 1024px) {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
 `;
 const Wrapper = styled.div`
   display: flex;
   gap: 20px;
+  @media (max-width: 1024px) {
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+  }
 `;
 const Seperator = styled.hr`
   height: 1px;
@@ -195,6 +212,9 @@ const AddReply = styled.div`
     font-size: 16px;
     cursor: pointer;
     border-radius: 30px;
+    @media (max-width: 1024px) {
+      width: auto;
+    }
   }
 `;
 const Icons = styled.div`
@@ -220,5 +240,15 @@ const Input = styled.input`
   box-shadow: rgb(17 12 46 / 15%) 0px 48px 100px 0px;
   &:focus {
     outline: none;
+  }
+`;
+const TimeStamp = styled.p`
+  @media (max-width: 1024px) {
+    font-size: 12px;
+  }
+`;
+const ReviewText = styled.p`
+  @media (max-width: 1024px) {
+    text-align: center;
   }
 `;

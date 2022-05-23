@@ -44,7 +44,6 @@ export default function Profile() {
             <ProfileLikes user={user} />
           </Content>
         </Container>
-
         <ProfileWatch user={user} />
       </Parent>
     </Wrapper>
@@ -58,6 +57,10 @@ const Parent = styled.div`
   max-width: 70%;
   margin: 40px auto;
   gap: 20px;
+  @media (max-width: 1024px) {
+    flex-direction: column;
+    max-width: 90%;
+  }
   > div {
     flex: 1;
     padding: 20px;
