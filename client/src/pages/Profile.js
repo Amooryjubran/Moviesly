@@ -11,7 +11,9 @@ import { useFetch } from "../hooks/useFetch";
 
 export default function Profile() {
   const { profile } = useParams();
-  const { data } = useFetch(`/api/user/${profile}`);
+  const { data } = useFetch(
+    `${process.env.REACT_APP_SERVER_API}/api/user/${profile}`
+  );
   const [active, setActive] = useState(0);
 
   if (!data) {

@@ -50,7 +50,7 @@ export default function Login() {
     }
     setButtonSpinner(true);
     loadingUser();
-    fetch("/api/login", {
+    fetch(`${process.env.REACT_APP_SERVER_API}/api/login`, {
       method: "POST",
       headers: {
         Accept: "application/json",

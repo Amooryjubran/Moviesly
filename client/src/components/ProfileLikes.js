@@ -4,7 +4,7 @@ import styled from "styled-components";
 import ReviewCard from "./ReviewCard";
 
 export default function ProfileLikes({ user }) {
-  const { data } = useFetch("/api/reviews");
+  const { data } = useFetch(`${process.env.REACT_APP_SERVER_API}/api/reviews`);
   if (!data) {
     return null;
   }

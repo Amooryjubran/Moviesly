@@ -26,7 +26,7 @@ export default function ReviewCard({ i, user }) {
       return;
     }
 
-    fetch(`/api/like`, {
+    fetch(`${process.env.REACT_APP_SERVER_API}/api/like`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -54,7 +54,7 @@ export default function ReviewCard({ i, user }) {
     if (!user.email || !currentUser) {
       return;
     }
-    fetch(`/api/reply`, {
+    fetch(`${process.env.REACT_APP_SERVER_API}/api/reply`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

@@ -23,7 +23,7 @@ export const UsePut = ({
       copy.splice(findMovie, 1);
     }
     updateUser(update);
-    fetch(`/api/${url}`, {
+    fetch(`${process.env.REACT_APP_SERVER_API}/api/${url}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(input),

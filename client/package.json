@@ -2,7 +2,6 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
-  "proxy": "https://movieslifyserver.herokuapp.com",
   "dependencies": {
     "@emotion/react": "^11.9.0",
     "@emotion/style": "^0.8.0",

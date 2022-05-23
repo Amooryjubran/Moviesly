@@ -9,7 +9,10 @@ import { UserContext } from "../context/UserContext";
 export default function Replys({ i }) {
   const { state } = useContext(UserContext);
 
-  const { data } = useFetch("/api/users", state.reload);
+  const { data } = useFetch(
+    `${process.env.REACT_APP_SERVER_API}/api/users`,
+    state.reload
+  );
 
   if (!data || !i) {
     return (

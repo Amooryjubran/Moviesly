@@ -29,7 +29,7 @@ export default function AddReview() {
       return setError(true);
     }
 
-    fetch(`/api/review`, {
+    fetch(`${process.env.REACT_APP_SERVER_API}/api/review`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

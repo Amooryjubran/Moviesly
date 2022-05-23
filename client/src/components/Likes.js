@@ -11,7 +11,7 @@ export default function Likes({ setLikeBtn, likeBtn, i, user }) {
     actions: { triggerReload },
   } = useContext(UserContext);
   useEffect(() => {
-    fetch(`/api/like`, {
+    fetch(`${process.env.REACT_APP_SERVER_API}/api/like`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

@@ -11,7 +11,7 @@ export default function NewsLetter() {
     if (input.length < 1) {
       return setError(true);
     }
-    fetch(`/api/newsletter`, {
+    fetch(`${process.env.REACT_APP_SERVER_API}/api/newsletter`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

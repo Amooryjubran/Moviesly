@@ -63,7 +63,7 @@ export default function SignUp() {
       return [setCheckConfirmPassword(true), setError(false)];
     }
     loadingUser();
-    fetch("/api/user", {
+    fetch(`${process.env.REACT_APP_SERVER_API}/api/user`, {
       method: "POST",
       headers: {
         Accept: "application/json",

@@ -4,7 +4,7 @@ import { useFetch } from "../hooks/useFetch";
 import ReviewCard from "./ReviewCard";
 
 export default function ProfileReview({ user }) {
-  const { data } = useFetch("/api/reviews");
+  const { data } = useFetch(`${process.env.REACT_APP_SERVER_API}/api/reviews`);
   if (!data) {
     return null;
   }

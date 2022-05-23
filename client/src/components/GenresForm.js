@@ -27,7 +27,7 @@ export default function GenresForm({ settings, data, user, updateUser }) {
               }
               updateUser({ user: { ...user, favoriteGenres: copy } });
               setLikedGenre(copy);
-              fetch(`/api/genres`, {
+              fetch(`${process.env.REACT_APP_SERVER_API}/api/genres`, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({

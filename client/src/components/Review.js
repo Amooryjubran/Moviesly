@@ -8,8 +8,14 @@ import ReviewCard from "./ReviewCard";
 export default function Review() {
   const { movie } = useParams();
   const { state } = useContext(UserContext);
-  const { data: reviews } = useFetch("/api/reviews", state.reload);
-  const { data: users } = useFetch("/api/users", state.reload);
+  const { data: reviews } = useFetch(
+    `${process.env.REACT_APP_SERVER_API}/api/reviews`,
+    state.reload
+  );
+  const { data: users } = useFetch(
+    `${process.env.REACT_APP_SERVER_API}/api/users`,
+    state.reload
+  );
 
   if (!reviews || !users) {
     return null;

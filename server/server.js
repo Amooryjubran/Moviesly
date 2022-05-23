@@ -2,6 +2,8 @@
 
 const express = require("express");
 const morgan = require("morgan");
+const cors = require("cors");
+const helmet = require("helmet");
 const {
   getUsers,
   getUser,
@@ -22,7 +24,8 @@ const {
 express()
   .use(morgan("dev"))
   .use(express.json())
-
+  .use(cors())
+  .use(helmet())
   .use(express.static("public"))
 
   .get("/api/users", getUsers)
@@ -50,6 +53,4 @@ express()
     res.status(200).json("I'm the next Mark Zuckerbung")
   )
 
-  .listen(process.env.PORT || 8000, () =>
-    console.info(`Listening on port ${PORT}`)
-  );
+  .listen(process.env.PORT || 8000, () => console.info(`Listening on port `));
