@@ -7,6 +7,7 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import LoginForm from "../components/LoginForm";
 import { UserContext } from "../context/UserContext";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import SmallLogo from "../assets/MoviesLify-small-logo.jpg";
 
 export default function Login() {
   const [passwordShown, setPasswordShown] = useState(false);
@@ -114,7 +115,7 @@ export default function Login() {
           <LoginLogin>
             New to Movieslify ? <Link to="/signup">Sign Up</Link>
           </LoginLogin>
-          {!matches && <img src={Logo} alt="logoG" className="signUpLogoG" />}
+          {!matches && <LoginMiniLogo src={SmallLogo} alt="logoG" />}
         </LoginFormWrapper>
       </LoginWrapper>
     </LoginContainer>
@@ -204,4 +205,12 @@ const LoginFormWrapper = styled.div`
   @media (max-width: 1024px) {
     background: hsla(0, 0%, 100%, 0.55);
   }
+`;
+const LoginMiniLogo = styled.img`
+  display: block;
+  margin: 10px auto;
+  height: 30px;
+  width: 70px;
+  object-fit: contain;
+  transform: scale(1);
 `;
